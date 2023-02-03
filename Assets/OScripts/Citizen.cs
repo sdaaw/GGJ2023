@@ -18,12 +18,24 @@ public class Citizen : MonoBehaviour
 
     private Color _targetColor;
 
+    private Vector3 _targetPosition;
+
+    public enum CitizenState
+    {
+        Celebrating,
+        Walking,
+        WalkingToPos
+    }
+
+    private CitizenState _cState;
+
 
 
 
 
     private void Start()
     {
+        _cState = CitizenState.Walking;
         _rootingSpeed = Random.Range(0.05f, 0.2f);
         transform.rotation = GetRandomDirection();
         _rend = GetComponent<Renderer>();
@@ -38,10 +50,13 @@ public class Citizen : MonoBehaviour
             _isCelebrating = !_isCelebrating;
             if (_isCelebrating)
             {
+                _cState = CitizenState.Celebrating;
                 Celebrate(1f);
             } else
             {
+                _cState = CitizenState.Walking;
                 _material.color = Color.white;
+                transform.position = new Vector3(transform.position.x, 1, transform.position.z);
             }
         }
     }
@@ -56,14 +71,14 @@ public class Citizen : MonoBehaviour
         {
             if(fwdRay.transform != this)
             {
-                Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * fwdRay.distance, Color.red);
+                //Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * fwdRay.distance, Color.red);
                 transform.rotation = GetRandomDirection();
             }
         }
-        if(transform.position.x < GameManager.Instance.spawnBoundaries.x || 
-            transform.position.x > GameManager.Instance.spawnBoundaries.xx || 
-            transform.position.z < GameManager.Instance.spawnBoundaries.y ||
-            transform.position.z > GameManager.Instance.spawnBoundaries.yy)
+        if(transform.position.x <= GameManager.Instance.spawnBoundaries.x || 
+            transform.position.x >= GameManager.Instance.spawnBoundaries.xx || 
+            transform.position.z <= GameManager.Instance.spawnBoundaries.y ||
+            transform.position.z >= GameManager.Instance.spawnBoundaries.yy)
         {
             transform.rotation = GetRandomDirection();
         }
@@ -79,13 +94,32 @@ public class Citizen : MonoBehaviour
     {
 
 
-        if(_isCelebrating)
+        if(_cState == CitizenState.Celebrating)
         {
-
             Celebrate(1f);
-        } else
+        }
+        if(_cState == CitizenState.Walking)
         {
             MoveRandom();
+        }
+        if(_cState == CitizenState.WalkingToPos)
+        {
+            MoveTowardsPoint(_targetPosition);
+        }
+
+    }
+
+    public void MoveTowardsPoint(Vector3 pos)
+    {
+        transform.LookAt(pos);
+        transform.position += transform.forward * (movementSpeed * 3f) * Time.deltaTime;
+        RaycastHit fwdRay;
+        if (Physics.Raycast(transform.position, transform.forward, out fwdRay, 2f))
+        {
+            if (fwdRay.transform != this)
+            {
+                _cState = CitizenState.Celebrating;
+            }
         }
     }
 
@@ -102,7 +136,7 @@ public class Citizen : MonoBehaviour
         _material.color = Color.Lerp(_material.color, _targetColor, Mathf.PingPong(Time.time, colorSpeed));
         if (_material.color == _targetColor)
         {
-            _targetColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 0.2f), Random.Range(0f, 1f));
+            _targetColor = new Color(Random.Range(0.5f, 1f), Random.Range(0f, 0.2f), Random.Range(0.5f, 1f));
         }
 
     }
