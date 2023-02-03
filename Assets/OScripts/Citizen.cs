@@ -6,7 +6,7 @@ public class Citizen : MonoBehaviour
 {
 
     public float movementSpeed;
-    public float rootingSpeed;
+    private float _rootingSpeed;
 
     public GameObject player;
 
@@ -18,16 +18,13 @@ public class Citizen : MonoBehaviour
 
     private Color _targetColor;
 
-    private Vector3 _direction;
 
-    private int _moveIterations;
 
-    private bool _isMoving;
 
 
     private void Start()
     {
-        _moveIterations = 0;
+        _rootingSpeed = Random.Range(0.05f, 0.2f);
         transform.rotation = GetRandomDirection();
         _rend = GetComponent<Renderer>();
         _material = GetComponent<Renderer>().material;
@@ -39,7 +36,13 @@ public class Citizen : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space))
         {
             _isCelebrating = !_isCelebrating;
-            if (_isCelebrating) Celebrate(1f);
+            if (_isCelebrating)
+            {
+                Celebrate(1f);
+            } else
+            {
+                _material.color = Color.white;
+            }
         }
     }
 
@@ -74,19 +77,24 @@ public class Citizen : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveRandom();
 
 
         if(_isCelebrating)
         {
+
             Celebrate(1f);
+        } else
+        {
+            MoveRandom();
         }
     }
 
     public void Celebrate(float buffAmount)
     {
 
-
+        float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
+        print(yVal);
+        transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
         //transform.LookAt(player.transform);
 
         float colorSpeed = 1f;
@@ -96,5 +104,6 @@ public class Citizen : MonoBehaviour
         {
             _targetColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 0.2f), Random.Range(0f, 1f));
         }
+
     }
 }
