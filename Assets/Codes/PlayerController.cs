@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             comboStarted = true;
-            if (m_anim != null && mainHand.canMelee)
+            if(mainHand.canMelee)
             {
                 // SaveFile sf = FindObjectOfType<SaveFile>();
                 /*GameManager gm = FindObjectOfType<GameManager>();
@@ -174,15 +174,23 @@ public class PlayerController : MonoBehaviour
                 switch (currComboIdx)
                 {      
                     case 0:
-                        m_anim.SetTrigger("Attack1");
-                        m_anim.speed = mainHand.swingTimerMax;
+                        if(m_anim != null)
+                        {
+                            m_anim.SetTrigger("Attack1");
+                            m_anim.speed = mainHand.swingTimerMax;
+                        }
+                      
                         mainHand.Swing();
                         currComboIdx++;
                         SoundManager.PlayASource("YetiSound1");
                         break;
                     case 1:
-                        m_anim.SetTrigger("Attack2");
-                        m_anim.speed = mainHand.swingTimerMax;
+                        if (m_anim != null)
+                        {
+                            m_anim.SetTrigger("Attack2");
+                            m_anim.speed = mainHand.swingTimerMax;
+                        }
+                           
                         offHand.Swing();
                         SoundManager.PlayASource("YetiSound2");
                         // sf.loadedSave.currentMaxCombo
@@ -195,7 +203,11 @@ public class PlayerController : MonoBehaviour
                         } 
                         break;
                     case 2:
-                        m_anim.SetTrigger("Attack3");
+                        if (m_anim != null)
+                        {
+                            m_anim.SetTrigger("Attack3");
+                        }
+                           
                         mainHand.Swing();
                         offHand.Swing();
                         currComboIdx = 0;

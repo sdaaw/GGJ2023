@@ -9,6 +9,13 @@ public class SoundManager : MonoBehaviour
     ///Play sound with same name as "name" parameter
     public static void PlayASource(string name)
     {
+        if(Instance == null)
+        {
+            Debug.Log("soundmanager not configured");
+            return;
+        }
+
+
         foreach (SoundAsset s in Instance.sounds)
         {
             if (name == s.aName)
