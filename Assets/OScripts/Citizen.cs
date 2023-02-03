@@ -18,7 +18,16 @@ public class Citizen : MonoBehaviour
 
     private Color _targetColor;
 
+    private float _cheerDistance;
+
     private Vector3 _targetPosition;
+    public float cheerTime;
+
+    private float _cheerTimer;
+
+    public GameObject particleObject;
+
+    private ParticleSystem celebrationParticle;
 
     public enum CitizenState
     {
@@ -35,6 +44,8 @@ public class Citizen : MonoBehaviour
 
     private void Start()
     {
+        celebrationParticle = particleObject.GetComponent<ParticleSystem>();
+        _cheerDistance = Random.Range(4f, 7f);
         _cState = CitizenState.Walking;
         _rootingSpeed = Random.Range(0.05f, 0.2f);
         transform.rotation = GetRandomDirection();
@@ -45,19 +56,25 @@ public class Citizen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Space))
+        /*if(Input.GetKeyUp(KeyCode.Space))
         {
             _isCelebrating = !_isCelebrating;
             if (_isCelebrating)
             {
                 _cState = CitizenState.Celebrating;
-                Celebrate(1f);
+                Celebrate();
             } else
             {
                 _cState = CitizenState.Walking;
                 _material.color = Color.white;
                 transform.position = new Vector3(transform.position.x, 1, transform.position.z);
             }
+        }*/
+
+        if(Input.GetKeyUp(KeyCode.R))
+        {
+            _targetPosition = new Vector3(0, 1, 0);
+            _cState = CitizenState.WalkingToPos;
         }
     }
 
@@ -96,7 +113,7 @@ public class Citizen : MonoBehaviour
 
         if(_cState == CitizenState.Celebrating)
         {
-            Celebrate(1f);
+            Celebrate();
         }
         if(_cState == CitizenState.Walking)
         {
@@ -121,11 +138,18 @@ public class Citizen : MonoBehaviour
                 _cState = CitizenState.Celebrating;
             }
         }
+        if(Vector3.Distance(transform.position, pos) < _cheerDistance)
+        {
+            _cState = CitizenState.Celebrating;
+        }
     }
 
-    public void Celebrate(float buffAmount)
+    public void Celebrate()
     {
-
+        if(Random.Range(0, 1000) > 995)
+        {
+            celebrationParticle.Play();
+        }
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
         print(yVal);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
@@ -137,6 +161,15 @@ public class Citizen : MonoBehaviour
         if (_material.color == _targetColor)
         {
             _targetColor = new Color(Random.Range(0.5f, 1f), Random.Range(0f, 0.2f), Random.Range(0.5f, 1f));
+        }
+
+        _cheerTimer += 1 * Time.deltaTime;
+        if (_cheerTimer >= cheerTime)
+        {
+            _material.color = Color.white;
+            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+            _cState = CitizenState.Walking;
+            _cheerTimer = 0;
         }
 
     }
