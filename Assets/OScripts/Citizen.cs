@@ -18,12 +18,20 @@ public class Citizen : MonoBehaviour
 
     private Color _targetColor;
 
+    private Vector3 _direction;
+
+    private int _moveIterations;
+
+    private bool _isMoving;
+
+
     private void Start()
     {
+        _moveIterations = 0;
+        transform.rotation = GetRandomDirection();
         _rend = GetComponent<Renderer>();
         _material = GetComponent<Renderer>().material;
         _targetColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-
     }
     // Update is called once per frame
     void Update()
@@ -36,10 +44,39 @@ public class Citizen : MonoBehaviour
     }
 
 
+    public void MoveRandom()
+    {
+        //transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime, Space.Self);
+        transform.position += transform.forward * movementSpeed * Time.deltaTime;
+        RaycastHit fwdRay;
+        if (Physics.Raycast(transform.position, transform.forward, out fwdRay, 2f))
+        {
+            if(fwdRay.transform != this)
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * fwdRay.distance, Color.red);
+                transform.rotation = GetRandomDirection();
+            }
+        }
+        if(transform.position.x < GameManager.Instance.spawnBoundaries.x || 
+            transform.position.x > GameManager.Instance.spawnBoundaries.xx || 
+            transform.position.z < GameManager.Instance.spawnBoundaries.y ||
+            transform.position.z > GameManager.Instance.spawnBoundaries.yy)
+        {
+            transform.rotation = GetRandomDirection();
+        }
+    }
+
+    public Quaternion GetRandomDirection()
+    {
+        return new Quaternion(transform.rotation.x, Random.rotation.y, transform.rotation.z, Random.rotation.w);
+    }
 
 
     private void FixedUpdate()
     {
+        MoveRandom();
+
+
         if(_isCelebrating)
         {
             Celebrate(1f);
