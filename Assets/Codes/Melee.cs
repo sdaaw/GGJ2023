@@ -76,7 +76,7 @@ public class Melee : Weapon
 
             Rigidbody r = other.GetComponent<Rigidbody>();
 
-            if (r.gameObject.layer == 8 || r.gameObject.layer == 7)
+            if (r != null && (r.gameObject.layer == 8 || r.gameObject.layer == 7))
             {
                 if (canDealDamage && !hitList.Contains(r.gameObject))
                 {
