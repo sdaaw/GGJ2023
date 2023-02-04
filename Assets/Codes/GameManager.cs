@@ -32,8 +32,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public GameObject player;
 
+    [SerializeField]
+    private GameObject playerPrefab;
+
+
+    public GameObject player;
 
 
 
@@ -51,8 +55,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameObject a = Instantiate(player, new Vector3(0, 1, 0), Quaternion.identity);
-        FindObjectOfType<Camera>().GetComponent<CameraFollow>().m_follow = a.transform;
+        player = Instantiate(playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        FindObjectOfType<Camera>().GetComponent<CameraFollow>().m_follow = player.transform;
         SpawnCitizens();
     }
 

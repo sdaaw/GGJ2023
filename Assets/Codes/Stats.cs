@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -8,9 +8,12 @@ public class Stats : MonoBehaviour
     public float health;
     public float maxHealth;
 
-    public int fameLevel;
-    public float fameExperience;
-    public float experienceToNextLevel;
+
+    private int fameLevel;
+
+    private float fameExperience;
+
+    private float experienceToNextLevel;
 
     public bool isDead;
 
@@ -18,9 +21,15 @@ public class Stats : MonoBehaviour
 
     public float scoreOnDeath;
 
+    public float playerScale;
 
-    private void Start()
+    public GameObject levelUpParticle;
+
+    private ParticleSystem _levelUpParticle;
+
+    void Start()
     {
+        _levelUpParticle = levelUpParticle.GetComponent<ParticleSystem>();
         fameLevel = 1;
         fameExperience = 0;
         experienceToNextLevel = 100;
@@ -32,7 +41,7 @@ public class Stats : MonoBehaviour
         if (isDead)
             return;
 
-        if(GetComponent<PlayerController>())
+        if (GetComponent<PlayerController>())
         {
             //player takes damage sound
             PlayerController pc = GetComponent<PlayerController>();
@@ -48,15 +57,15 @@ public class Stats : MonoBehaviour
             GetComponent<Enemy>().chase = true;
 
             int r = Random.Range(0, 2);
-            if(!isDead && !GetComponent<Enemy>().isMelee)
+            if (!isDead && !GetComponent<Enemy>().isMelee)
                 SoundManager.PlayASource((r == 0) ? "EnemyHurt" : "EnemyHurt2");
-            else if(GetComponent<Enemy>().isMelee)
+            else if (GetComponent<Enemy>().isMelee)
             {
                 SoundManager.PlayASource("Dog2");
             }
 
             //  FindObjectOfType<Blood>().SpawnBlood(transform.position);
-        } 
+        }
         else if (GetComponent<PlayerController>())
             GetComponent<PlayerController>().UpdateHealthImage();
     }
@@ -89,13 +98,17 @@ public class Stats : MonoBehaviour
     public void GainExperience(float amount)
     {
         fameExperience += amount;
-        if(fameExperience >= experienceToNextLevel)
+        if (fameExperience >= experienceToNextLevel)
         {
+            _levelUpParticle.Play();
             fameLevel++;
             float overflowXP = fameExperience - experienceToNextLevel;
             fameExperience = 0;
             GainExperience(overflowXP);
-            experienceToNextLevel *= 1.15f; //arbitrary multiplier
+            experienceToNextLevel *= 1.15f; //arbitrary multipliers
+            //playerScale *= 1.1f;
+            transform.localScale *= 1.1f;
+            //camera zoom out here probably too
         }
     }
 
@@ -104,7 +117,7 @@ public class Stats : MonoBehaviour
         float healPerSecond = amount / duration;
         float totalHealed = 0;
 
-        while(totalHealed < amount)
+        while (totalHealed < amount)
         {
             health += healPerSecond;
             if (health >= maxHealth)
@@ -122,18 +135,18 @@ public class Stats : MonoBehaviour
     {
         if (GetComponentInChildren<Animator>())
         {
-            if(hasDeadAnim)
+            if (hasDeadAnim)
                 GetComponentInChildren<Animator>().SetTrigger("Death");
-            if(GetComponent<Enemy>())
+            if (GetComponent<Enemy>())
             {
                 Enemy e = GetComponent<Enemy>();
-                if(e.isRanged)
+                if (e.isRanged)
                 {
                     //fix death animation...
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 2, 0);
                 }
 
-                if(e.isScout)
+                if (e.isScout)
                 {
                     e.GetComponentInChildren<Animator>().gameObject.transform.Rotate(-75, 0, 0);
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 1f, 0);
@@ -152,20 +165,20 @@ public class Stats : MonoBehaviour
             GetComponent<Enemy>().isEnabled = false;
             GetComponent<Enemy>().isEatable = true;
 
-            if(GetComponentInChildren<Light>())
+            if (GetComponentInChildren<Light>())
                 GetComponentInChildren<Light>().gameObject.SetActive(false);
 
 
             FindObjectOfType<PlayerController>().score += scoreOnDeath;
 
-           
+
             if (GetComponent<Enemy>().isMelee)
             {
                 SoundManager.PlayASource("Dog1");
             }
             else
                 SoundManager.PlayASource("EnemyDie");
-        }  
+        }
 
         if (GetComponent<Gun>())
             GetComponent<Gun>().enabled = false;
@@ -173,7 +186,7 @@ public class Stats : MonoBehaviour
         if (GetComponentInChildren<Melee>())
             GetComponentInChildren<Melee>().enabled = false;
 
-        if(hasDeadAnim)
+        if (hasDeadAnim)
             yield return new WaitForSeconds(4);
         else
             yield return new WaitForSeconds(0.1f);
