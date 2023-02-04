@@ -133,7 +133,7 @@ MonoBehaviour:
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
     triggerAllowedTags:
-    - PlayerMelee
+    - Destroy
     triggerKey: 0
   fractureOptions:
     fragmentCount: 15
