@@ -8,11 +8,13 @@ public class Stats : MonoBehaviour
     public float health;
     public float maxHealth;
 
-
+    [SerializeField]
     private int fameLevel;
 
+    [SerializeField]
     private float fameExperience;
 
+    [SerializeField]
     private float experienceToNextLevel;
 
     public bool isDead;
@@ -27,8 +29,11 @@ public class Stats : MonoBehaviour
 
     private ParticleSystem _levelUpParticle;
 
+    private CameraFollow _cFollow;
+
     void Start()
     {
+        _cFollow = FindObjectOfType<Camera>().GetComponent<CameraFollow>();
         _levelUpParticle = levelUpParticle.GetComponent<ParticleSystem>();
         fameLevel = 1;
         fameExperience = 0;
@@ -107,7 +112,10 @@ public class Stats : MonoBehaviour
             GainExperience(overflowXP);
             experienceToNextLevel *= 1.15f; //arbitrary multipliers
             //playerScale *= 1.1f;
-            transform.localScale *= 1.1f;
+            transform.localScale *= 1.05f;
+            _cFollow.distance *= 1.03f;
+            _cFollow.offsetZ *= 1.03f;
+            _cFollow.offsetX *= 1.03f;
             //camera zoom out here probably too
         }
     }

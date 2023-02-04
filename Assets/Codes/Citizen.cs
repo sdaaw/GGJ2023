@@ -48,7 +48,7 @@ public class Citizen : MonoBehaviour
     {
         _playerStats = GameManager.Instance.player.GetComponent<Stats>();
         celebrationParticle = particleObject.GetComponent<ParticleSystem>();
-        _cheerDistance = Random.Range(4f, 7f);
+        _cheerDistance = Random.Range(1f, 2f);
         _cState = CitizenState.Walking;
         _rootingSpeed = Random.Range(0.05f, 0.2f);
         transform.rotation = GetRandomDirection();
@@ -76,7 +76,8 @@ public class Citizen : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.R))
         {
-            _targetPosition = new Vector3(0, 1, 0);
+            _targetPosition = GameManager.Instance.player.transform.position;
+            print(_targetPosition);
             _cState = CitizenState.WalkingToPos;
         }
     }
