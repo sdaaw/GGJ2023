@@ -265,8 +265,8 @@ public class Enemy : MonoBehaviour
     private IEnumerator WaitAfterShot()
     {
         yield return new WaitForSeconds(.5f);
-        if(!GetComponent<Stats>().isDead)
-            GetComponentInChildren<Animator>().SetTrigger("Reload");
+        /*if(!GetComponent<Stats>().isDead)
+            GetComponentInChildren<Animator>().SetTrigger("Reload");*/
     }
 
     public void CheckForPlayer()
