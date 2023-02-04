@@ -176,6 +176,11 @@ public class Citizen : MonoBehaviour
             _cheerTimer = 0;
         }
 
+        Animator anim = GetComponentInChildren<Animator>();
+        if(anim != null)
+            anim.SetTrigger("Celebrate");
+
+
         ChatPopup chat = GetComponentInChildren<ChatPopup>();
         if (chat != null)
         {
