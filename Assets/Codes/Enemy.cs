@@ -38,6 +38,8 @@ public class Enemy : MonoBehaviour
 
     public bool isEatable;
 
+    private SpriteRenderer sr;
+
     public bool HasGun
     {
         get
@@ -53,6 +55,7 @@ public class Enemy : MonoBehaviour
         m_cam = FindObjectOfType<Camera>();
         m_barStartColor = healthBar.colors.normalColor;
         m_anim = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Update()
@@ -62,6 +65,16 @@ public class Enemy : MonoBehaviour
             DoLogic();
             DoIdle();
             UpdateHealthBar();
+
+            // flip sprite
+            if (transform.eulerAngles.y > 180)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
         }    
     }
 
