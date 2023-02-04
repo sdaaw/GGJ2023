@@ -151,7 +151,6 @@ public class Citizen : MonoBehaviour
             celebrationParticle.Play();
         }
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
-        print(yVal);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
         //transform.LookAt(player.transform);
 
