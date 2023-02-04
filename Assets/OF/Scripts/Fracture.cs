@@ -208,6 +208,7 @@ public class Fracture : MonoBehaviour
         obj.tag = this.tag;
         // make them destructible layer
         obj.layer = 8;
+        obj.AddComponent<RemovePhysics>();
 
         // Update mesh to the new sliced mesh
         obj.AddComponent<MeshFilter>();
