@@ -83,6 +83,11 @@ public class Enemy : MonoBehaviour
         if (!isEnabled)
             return;
 
+        if(!pc)
+        {
+            pc = FindObjectOfType<PlayerController>();
+        }
+
         //not sure if needed
         if (isMelee)
         {
