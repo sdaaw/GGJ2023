@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
             }
 
 
-            if(Vector3.Distance(transform.position, pc.transform.position) <= 3)
+            if(pc && Vector3.Distance(transform.position, pc.transform.position) <= 3)
             {
                 if (curWeapon != null)
                 {
@@ -353,7 +353,7 @@ public class Enemy : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        if(Vector3.Distance(transform.position, pc.transform.position) >= 12)
+        if(pc && Vector3.Distance(transform.position, pc.transform.position) >= 12)
         {
             if (healthBar.gameObject.activeSelf)
                 healthBar.gameObject.SetActive(false);
