@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnGoober()
     {
+        //spawn after kill, max 3 at a time, after ther
         yield return new WaitForSeconds(gooberSpawnInterval);
         GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], Vector3.zero, UnityEngine.Random.rotation);
     }
