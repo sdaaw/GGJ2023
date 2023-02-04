@@ -276,7 +276,7 @@ MonoBehaviour:
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
     triggerAllowedTags:
-    - PlayerMelee
+    - Destroy
     triggerKey: 0
   fractureOptions:
     fragmentCount: 15
@@ -394,6 +394,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 24.475, z: 0}
+--- !u!1 &735781565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6206968931732395210, guid: 65413a6465911d546901d641812b1870,
+    type: 3}
+  m_PrefabInstance: {fileID: 4853430637552318869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &735781566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735781565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ff0b2821455c643bac587c6198108d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  maxHealth: 1
+  fameLevel: 0
+  fameExperience: 0
+  experienceToNextLevel: 0
+  isDead: 0
+  hasDeadAnim: 0
+  scoreOnDeath: 0
+  isHealing: 0
 --- !u!20 &961739752 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6542154623648395391, guid: c6dd8f1a6be5e2741824ab249d3a1f47,
@@ -487,7 +514,7 @@ MonoBehaviour:
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
     triggerAllowedTags:
-    - PlayerMelee
+    - Destroy
     triggerKey: 0
   fractureOptions:
     fragmentCount: 15
@@ -721,7 +748,7 @@ MonoBehaviour:
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
     triggerAllowedTags:
-    - PlayerMelee
+    - Destroy
     triggerKey: 0
   fractureOptions:
     fragmentCount: 10
@@ -1021,7 +1048,7 @@ MonoBehaviour:
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
     triggerAllowedTags:
-    - PlayerMelee
+    - Destroy
     triggerKey: 0
   fractureOptions:
     fragmentCount: 10
@@ -1139,6 +1166,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4853430637552318869
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700670726876697127, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206968931732395210, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_Name
+      value: ExplosionSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206968931732395210, guid: 65413a6465911d546901d641812b1870,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65413a6465911d546901d641812b1870, type: 3}
 --- !u!1001 &6542154623265737623
 PrefabInstance:
   m_ObjectHideFlags: 0

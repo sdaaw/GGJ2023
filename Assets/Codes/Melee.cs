@@ -26,7 +26,7 @@ public class Melee : Weapon
         {
             swingTimer = 0;
             canMelee = true;
-            this.gameObject.tag = "Player";
+            this.gameObject.tag = "Untagged";
             hitList.Clear();
         }
 
@@ -45,7 +45,7 @@ public class Melee : Weapon
 
     public void Swing()
     {
-        this.gameObject.tag = "PlayerMelee";
+        this.gameObject.tag = "Destroy";
         canMelee = false;
         swingTimer = swingTimerMax;
         swingDuration = maxSwingDuration;
@@ -55,7 +55,7 @@ public class Melee : Weapon
 
     public void ClearHitList()
     {
-        this.gameObject.tag = "Player";
+        this.gameObject.tag = "Untagged";
         canDealDamage = false;
         hitList.Clear();
     }
