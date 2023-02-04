@@ -176,5 +176,13 @@ public class Citizen : MonoBehaviour
             _cheerTimer = 0;
         }
 
+        ChatPopup chat = GetComponentInChildren<ChatPopup>();
+        if (chat != null)
+        {
+            chat.DisplayMessage();
+            // chat.StartCoroutine(chat.DisplayMessageTime(chat.GetRandomMessage(), 1));
+        }
+
+
     }
 }
