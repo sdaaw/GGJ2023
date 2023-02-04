@@ -33,19 +33,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //its not our player (cant shoot itself)
         if(other.transform != owner)
         {
-            //its not a bullet
-            /*if(other.gameObject.layer != 8)
-            {*/
-
             if (other.transform.root.GetComponent<Stats>())
                 other.transform.root.GetComponent<Stats>().TakeDmg(dmg);
 
             Destroy(gameObject);
-
-            //}
         }      
     }
 }

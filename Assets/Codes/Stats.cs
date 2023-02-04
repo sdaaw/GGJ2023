@@ -172,7 +172,6 @@ public class Stats : MonoBehaviour
             if(GetComponent<Enemy>().healthBar)
                 GetComponent<Enemy>().healthBar.gameObject.SetActive(false);
             GetComponent<Enemy>().isEnabled = false;
-            GetComponent<Enemy>().isEatable = true;
 
             if (GetComponentInChildren<Light>())
                 GetComponentInChildren<Light>().gameObject.SetActive(false);
@@ -201,7 +200,5 @@ public class Stats : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
         Destroy(gameObject);
-
-        //make it eatable
     }
 }
