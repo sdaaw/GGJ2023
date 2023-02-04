@@ -26,14 +26,11 @@ public class CameraFollow : MonoBehaviour
     
     public Transform m_follow;
 
-    [SerializeField]
-    private float m_distance;
+    public float distance;
 
-    [SerializeField]
-    private float m_offsetX;
+    public float offsetX;
 
-    [SerializeField]
-    private float m_offsetZ;
+    public float offsetZ;
 
     [SerializeField]
     private float m_smoothTime;
@@ -67,11 +64,11 @@ public class CameraFollow : MonoBehaviour
 
     private void FollowTarget()
     {
-        m_followPos.x = m_follow.position.x + m_offsetX;
-        m_followPos.z = m_follow.position.z + m_offsetZ;
+        m_followPos.x = m_follow.position.x + offsetX;
+        m_followPos.z = m_follow.position.z + offsetZ;
 
         //m_distance = Mathf.Clamp(m_distance - Input.GetAxis("Mouse ScrollWheel") * 5, m_distanceMin, m_distanceMax);
-        m_followPos.y = m_distance;
+        m_followPos.y = distance;
 
         m_transform.position = Vector3.SmoothDamp(m_transform.position, m_followPos, ref m_velocity, m_smoothTime);
     }
