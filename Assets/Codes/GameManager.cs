@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
 
+
+
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -52,6 +56,10 @@ public class GameManager : MonoBehaviour
         SpawnCitizens();
     }
 
+    public void FindBuildings()
+    {
+    }
+
     void Update()
     {
         
@@ -62,10 +70,10 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < citizenCount; i++)
         {
             Vector3 spawnPos = new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy));
-            while(IsInsideBuilding(spawnPos))
+            /*while(IsInsideBuilding(spawnPos))
             {
                 spawnPos = new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy));
-            }
+            }*/
             GameObject a = Instantiate(citizenPrefabs[UnityEngine.Random.Range(0, citizenPrefabs.Count)], spawnPos, Quaternion.identity);
         }
     }
