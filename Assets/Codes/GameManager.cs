@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public GameObject player;
+
     private void Awake()
     {
         if (Instance == null)
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        GameObject a = Instantiate(player, new Vector3(0, 1, 0), Quaternion.identity);
+        FindObjectOfType<Camera>().GetComponent<CameraFollow>().m_follow = a.transform;
         SpawnCitizens();
     }
 

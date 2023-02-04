@@ -38,12 +38,15 @@ public class Citizen : MonoBehaviour
 
     private CitizenState _cState;
 
+    private Stats _playerStats;
+
 
 
 
 
     private void Start()
     {
+        _playerStats = GameManager.Instance.player.GetComponent<Stats>();
         celebrationParticle = particleObject.GetComponent<ParticleSystem>();
         _cheerDistance = Random.Range(4f, 7f);
         _cState = CitizenState.Walking;
@@ -150,8 +153,8 @@ public class Citizen : MonoBehaviour
         {
             celebrationParticle.Play();
         }
+        _playerStats.GainExperience(1); //arbitrary number of experience gained
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
-        print(yVal);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
         //transform.LookAt(player.transform);
 

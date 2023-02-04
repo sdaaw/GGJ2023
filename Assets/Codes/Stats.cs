@@ -8,6 +8,10 @@ public class Stats : MonoBehaviour
     public float health;
     public float maxHealth;
 
+    public int fameLevel;
+    public float fameExperience;
+    public float experienceToNextLevel;
+
     public bool isDead;
 
     public bool hasDeadAnim;
@@ -17,6 +21,9 @@ public class Stats : MonoBehaviour
 
     private void Start()
     {
+        fameLevel = 1;
+        fameExperience = 0;
+        experienceToNextLevel = 100;
     }
 
     public void TakeDmg(float dmg)
@@ -77,6 +84,19 @@ public class Stats : MonoBehaviour
 
         StartCoroutine(HealOvertime(amount, durationSeconds));
 
+    }
+
+    public void GainExperience(float amount)
+    {
+        fameExperience += amount;
+        if(fameExperience >= experienceToNextLevel)
+        {
+            fameLevel++;
+            float overflowXP = fameExperience - experienceToNextLevel;
+            fameExperience = 0;
+            GainExperience(overflowXP);
+            experienceToNextLevel *= 1.15f; //arbitrary multiplier
+        }
     }
 
     IEnumerator HealOvertime(float amount, float duration)

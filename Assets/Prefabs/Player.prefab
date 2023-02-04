@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 7333250503845896471}
   - component: {fileID: 7333250503845896472}
   - component: {fileID: 7333250503845896473}
+  - component: {fileID: 188130112911357806}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -272,3 +273,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &188130112911357806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333250503845896474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ff0b2821455c643bac587c6198108d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  fameLevel: 1
+  fameExperience: 30087.938
+  experienceToNextLevel: 50131.254
+  isDead: 0
+  hasDeadAnim: 0
+  scoreOnDeath: 0
+  isHealing: 0
