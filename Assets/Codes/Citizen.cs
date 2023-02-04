@@ -131,7 +131,7 @@ public class Citizen : MonoBehaviour
 
     public void MoveTowardsPoint(Vector3 pos)
     {
-        transform.LookAt(pos);
+        transform.LookAt(new Vector3(pos.x, transform.position.y, transform.position.x));
         transform.position += transform.forward * (movementSpeed * 3f) * Time.deltaTime;
         RaycastHit fwdRay;
         if (Physics.Raycast(transform.position, transform.forward, out fwdRay, 2f))
