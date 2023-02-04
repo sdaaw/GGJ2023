@@ -40,6 +40,8 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    public float meleeDistance = 5;
+
     public bool HasGun
     {
         get
@@ -53,9 +55,13 @@ public class Enemy : MonoBehaviour
         pc = FindObjectOfType<PlayerController>();
         m_stats = GetComponent<Stats>();
         m_cam = FindObjectOfType<Camera>();
-        m_barStartColor = healthBar.colors.normalColor;
+        if(healthBar)
+            m_barStartColor = healthBar.colors.normalColor;
         m_anim = GetComponentInChildren<Animator>();
-        sr = GetComponentInChildren<SpriteRenderer>();
+
+        sr = GetComponent<SpriteRenderer>();
+        if (!sr)
+            sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Update()
@@ -67,13 +73,16 @@ public class Enemy : MonoBehaviour
             UpdateHealthBar();
 
             // flip sprite
-            if (transform.eulerAngles.y > 180)
+            if(sr)
             {
-                sr.flipX = true;
-            }
-            else
-            {
-                sr.flipX = false;
+                if (transform.eulerAngles.y > 180)
+                {
+                    sr.flipX = true;
+                }
+                else
+                {
+                    sr.flipX = false;
+                }
             }
         }    
     }
@@ -91,7 +100,7 @@ public class Enemy : MonoBehaviour
         //not sure if needed
         if (isMelee)
         {
-            if (chase && Vector3.Distance(transform.position, lastSeenSpot) >= 3 && !stop)
+            if (chase && Vector3.Distance(transform.position, lastSeenSpot) >= meleeDistance && !stop)
             {
                 Move((lastSeenSpot - transform.position).normalized);
 
@@ -101,7 +110,7 @@ public class Enemy : MonoBehaviour
                 if (pc != null)
                     transform.LookAt(pc.transform.position);
             }
-            else if (chase && Vector3.Distance(transform.position, lastSeenSpot) <= 3)
+            else if (chase && Vector3.Distance(transform.position, lastSeenSpot) <= meleeDistance)
             {
                 //chase = false;
                 if (m_anim != null)
@@ -115,7 +124,7 @@ public class Enemy : MonoBehaviour
             }
 
 
-            if(pc && Vector3.Distance(transform.position, pc.transform.position) <= 3)
+            if(pc && Vector3.Distance(transform.position, pc.transform.position) <= meleeDistance)
             {
                 if (curWeapon != null)
                 {
@@ -358,6 +367,10 @@ public class Enemy : MonoBehaviour
 
     private void UpdateHealthBar()
     {
+        if (!healthBar)
+            return;
+
+
         if(pc && Vector3.Distance(transform.position, pc.transform.position) >= 12)
         {
             if (healthBar.gameObject.activeSelf)
@@ -378,6 +391,9 @@ public class Enemy : MonoBehaviour
 
     public void FlashHealthBar()
     {
+        if (!healthBar)
+            return;
+
         Image im = healthBar.transform.GetChild(1).GetChild(0).GetComponent<Image>();
         StartCoroutine(FlashHealthBar(im, 0.1f));
     }
