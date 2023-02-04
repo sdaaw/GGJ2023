@@ -34,7 +34,7 @@ public class Stats : MonoBehaviour
     void Start()
     {
         _cFollow = FindObjectOfType<Camera>().GetComponent<CameraFollow>();
-        _levelUpParticle = levelUpParticle.GetComponent<ParticleSystem>();
+        if(transform.tag == "Player") _levelUpParticle = levelUpParticle.GetComponent<ParticleSystem>();
         fameLevel = 1;
         fameExperience = 0;
         experienceToNextLevel = 100;
@@ -116,7 +116,6 @@ public class Stats : MonoBehaviour
             _cFollow.distance *= 1.03f;
             _cFollow.offsetZ *= 1.03f;
             _cFollow.offsetX *= 1.03f;
-            //camera zoom out here probably too
         }
     }
 

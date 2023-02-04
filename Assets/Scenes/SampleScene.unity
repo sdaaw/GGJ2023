@@ -10374,13 +10374,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  gooberLimit: 20
   citizenCount: 50
   gooberCount: 0
+  waveNumber: 0
+  bigGoober: {fileID: 0}
   gooberPrefabs:
-  - {fileID: 5925294661424371884, guid: 49b36dc1a41877a4196f2f3d34e0b81e, type: 3}
+  - {fileID: 5057532900568996516, guid: 4254afe4811199a439e346020318297b, type: 3}
   citizenPrefabs:
   - {fileID: 2717545220140817253, guid: 74fbda4ccd92bb341833467cc7eca4be, type: 3}
-  gooberSpawnInterval: 0
+  gooberSpawnInterval: 3
   spawnBoundaries:
     x: -40
     y: -40
