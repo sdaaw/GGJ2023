@@ -19,8 +19,15 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Goobers = new List<GameObject>();
     public List<GameObject> Buildings = new List<GameObject>();
 
+    private List<GameObject> GoobersAlive = new List<GameObject>();
+
+    public int gooberLimit;
+
     public int citizenCount;
     public int gooberCount;
+    public int waveNumber;
+
+    public GameObject bigGoober;
 
     public List<GameObject> gooberPrefabs;
     public List<GameObject> citizenPrefabs;
@@ -58,6 +65,8 @@ public class GameManager : MonoBehaviour
         player = Instantiate(playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         FindObjectOfType<Camera>().GetComponent<CameraFollow>().m_follow = player.transform;
         SpawnCitizens();
+        SpawnNextWave(gooberLimit);
+        StartCoroutine(WaveObserver());
     }
 
     public void FindBuildings()
@@ -95,10 +104,28 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    IEnumerator SpawnGoober()
+    IEnumerator WaveObserver()
     {
-        //spawn after kill, max 3 at a time, after ther
-        yield return new WaitForSeconds(gooberSpawnInterval);
-        GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], Vector3.zero, UnityEngine.Random.rotation);
+        if(GoobersAlive.Count == 0)
+        {
+            SpawnNextWave(gooberLimit);
+        }
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(WaveObserver());
+        //spawn after kill, max 3 at a time, after they are killed, spawn big one
+    }
+
+    public void SpawnNextWave(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy)), UnityEngine.Random.rotation);
+            SpriteRenderer sr = a.transform.GetChild(1).GetComponent<SpriteRenderer>();
+            sr.color = new Color(
+                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                sr.color.b - UnityEngine.Random.Range(0.1f, 0.3f));
+            GoobersAlive.Add(a);
+        }
     }
 }
