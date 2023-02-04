@@ -61,6 +61,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead = false;
 
+    private SpriteRenderer sr;
+    private Vector3 spriteLocalScale;
+
     private void Awake()
     {
         m_transform = transform;
@@ -69,6 +72,8 @@ public class PlayerController : MonoBehaviour
         m_playerCamera = FindObjectOfType<Camera>();
         m_anim = GetComponentInChildren<Animator>();
         m_stats = GetComponent<Stats>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        spriteLocalScale = sr.transform.localScale;
     }
 
     void FixedUpdate()
@@ -112,11 +117,27 @@ public class PlayerController : MonoBehaviour
             float speed = Mathf.Abs(m_move.magnitude);
             m_anim.SetFloat("Speed", speed);
 
-            if (speed > 0 && !walkSound.isPlaying)
-                walkSound.Play();
-            else if(speed <= 0)
-                walkSound.Pause();
+            if(walkSound)
+            {
+                if (speed > 0 && !walkSound.isPlaying)
+                    walkSound.Play();
+                else if (speed <= 0)
+                    walkSound.Pause();
+            }
+
+          
         }
+
+        // flip sprite
+        if (m_transform.eulerAngles.y > 180)
+        {
+            sr.flipX = true;
+        }
+        else
+        {
+            sr.flipX = false;
+        }
+
 
         if (!AllowMovement)
             return;
@@ -145,10 +166,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (Input.GetKeyDown(KeyCode.F))
         {
             AttemptEat();
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -159,8 +180,8 @@ public class PlayerController : MonoBehaviour
                 /*GameManager gm = FindObjectOfType<GameManager>();
                 if(gm.boboFace != null)
                     gm.boboFace.sprite = gm.boboAngry;*/
-
-                /*if (currComboIdx >= sf.loadedSave.currentMaxCombo)
+                // sf.loadedSave.currentMaxCombo
+                /*if (currComboIdx >= 2)
                 {
                     currComboIdx = 0;
                 }
@@ -171,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
                 //Debug.Log(currComboIdx);
 
-                switch (currComboIdx)
+                switch (0)
                 {      
                     case 0:
                         if(m_anim != null)
@@ -182,7 +203,7 @@ public class PlayerController : MonoBehaviour
                       
                         mainHand.Swing();
                         currComboIdx++;
-                        SoundManager.PlayASource("YetiSound1");
+                        //SoundManager.PlayASource("YetiSound1");
                         break;
                     case 1:
                         if (m_anim != null)
@@ -192,7 +213,7 @@ public class PlayerController : MonoBehaviour
                         }
                            
                         offHand.Swing();
-                        SoundManager.PlayASource("YetiSound2");
+                        //SoundManager.PlayASource("YetiSound2");
                         // sf.loadedSave.currentMaxCombo
                         if (currComboIdx < 2)
                             currComboIdx++;
@@ -211,7 +232,7 @@ public class PlayerController : MonoBehaviour
                         mainHand.Swing();
                         offHand.Swing();
                         currComboIdx = 0;
-                        SoundManager.PlayASource("YetiSound3");
+                        //SoundManager.PlayASource("YetiSound3");
                         break;
                 }
 
