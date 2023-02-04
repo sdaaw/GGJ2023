@@ -117,15 +117,24 @@ public class GameManager : MonoBehaviour
 
     public void SpawnNextWave(int amount)
     {
-        for (int i = 0; i < amount; i++)
+        waveNumber++;
+        if(waveNumber >= 3)
         {
-            GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy)), UnityEngine.Random.rotation);
-            SpriteRenderer sr = a.transform.GetChild(1).GetComponent<SpriteRenderer>();
-            sr.color = new Color(
-                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
-                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
-                sr.color.b - UnityEngine.Random.Range(0.1f, 0.3f));
-            GoobersAlive.Add(a);
+            //every 3 waves spawn big guy
+            waveNumber = 0;
+        } else
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy)), UnityEngine.Random.rotation);
+                SpriteRenderer sr = a.transform.GetChild(1).GetComponent<SpriteRenderer>();
+                sr.color = new Color(
+                    sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                    sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                    sr.color.b - UnityEngine.Random.Range(0.1f, 0.3f));
+                GoobersAlive.Add(a);
+            }
+
         }
     }
 }
