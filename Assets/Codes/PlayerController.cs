@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         if(comboStarted)
         {
             comboTimer += 1 * Time.deltaTime;
-            if (comboTimer > 3)
+            if (comboTimer > 1.5f)
             {
                 // GameManager gm = FindObjectOfType<GameManager>();
                 comboTimer = 0;
@@ -181,18 +181,10 @@ public class PlayerController : MonoBehaviour
                 if(gm.boboFace != null)
                     gm.boboFace.sprite = gm.boboAngry;*/
                 // sf.loadedSave.currentMaxCombo
-                /*if (currComboIdx >= 2)
-                {
-                    currComboIdx = 0;
-                }
-                else
-                {
-                    currComboIdx++;
-                }*/
 
-                //Debug.Log(currComboIdx);
+                Debug.Log(currComboIdx);
 
-                switch (0)
+                switch (currComboIdx)
                 {      
                     case 0:
                         if(m_anim != null)
@@ -203,6 +195,7 @@ public class PlayerController : MonoBehaviour
                       
                         mainHand.Swing();
                         currComboIdx++;
+                        comboTimer -= 1;
                         //SoundManager.PlayASource("YetiSound1");
                         break;
                     case 1:
@@ -211,17 +204,10 @@ public class PlayerController : MonoBehaviour
                             m_anim.SetTrigger("Attack2");
                             m_anim.speed = mainHand.swingTimerMax;
                         }
-                           
-                        offHand.Swing();
-                        //SoundManager.PlayASource("YetiSound2");
-                        // sf.loadedSave.currentMaxCombo
-                        if (currComboIdx < 2)
-                            currComboIdx++;
-                        else
-                        {
-                            currComboIdx = 0;
-                            comboTimer = 3;
-                        } 
+
+                        mainHand.Swing();
+                        currComboIdx++;
+                        comboTimer -= 1;
                         break;
                     case 2:
                         if (m_anim != null)
@@ -230,7 +216,6 @@ public class PlayerController : MonoBehaviour
                         }
                            
                         mainHand.Swing();
-                        offHand.Swing();
                         currComboIdx = 0;
                         //SoundManager.PlayASource("YetiSound3");
                         break;

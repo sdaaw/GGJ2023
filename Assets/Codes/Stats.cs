@@ -146,7 +146,7 @@ public class Stats : MonoBehaviour
                 GetComponentInChildren<Animator>().SetTrigger("Death");
             if (GetComponent<Enemy>())
             {
-                Enemy e = GetComponent<Enemy>();
+                /*Enemy e = GetComponent<Enemy>();
                 if (e.isRanged)
                 {
                     //fix death animation...
@@ -157,7 +157,8 @@ public class Stats : MonoBehaviour
                 {
                     e.GetComponentInChildren<Animator>().gameObject.transform.Rotate(-75, 0, 0);
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 1f, 0);
-                }
+                }*/
+
             }
         }
 
@@ -168,7 +169,8 @@ public class Stats : MonoBehaviour
         if (GetComponent<Enemy>())
         {
             GetComponent<Enemy>().AllowMovement = false;
-            GetComponent<Enemy>().healthBar.gameObject.SetActive(false);
+            if(GetComponent<Enemy>().healthBar)
+                GetComponent<Enemy>().healthBar.gameObject.SetActive(false);
             GetComponent<Enemy>().isEnabled = false;
             GetComponent<Enemy>().isEatable = true;
 
@@ -198,7 +200,7 @@ public class Stats : MonoBehaviour
         else
             yield return new WaitForSeconds(0.1f);
 
-        //Destroy(gameObject);
+        Destroy(gameObject);
 
         //make it eatable
     }
