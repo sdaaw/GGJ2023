@@ -78,6 +78,14 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void Celebrate()
+    {
+        foreach(GameObject c in Citizens)
+        {
+            c.GetComponent<Citizen>().StartCelebration();
+        }
+    }
+
     public void SpawnCitizens()
     {
         for(int i = 0; i < citizenCount; i++)
@@ -88,6 +96,7 @@ public class GameManager : MonoBehaviour
                 spawnPos = new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 1, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy));
             }*/
             GameObject a = Instantiate(citizenPrefabs[UnityEngine.Random.Range(0, citizenPrefabs.Count)], spawnPos, Quaternion.identity);
+            Citizens.Add(a);
         }
     }
 

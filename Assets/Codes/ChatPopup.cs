@@ -60,7 +60,7 @@ public class ChatPopup : MonoBehaviour
 
     public string GetRandomMessage()
     {
-        Debug.Log(Messages.Count);
+        //Debug.Log(Messages.Count);
         string message = Messages[Random.Range(0, Messages.Count)];
         return message;
     }

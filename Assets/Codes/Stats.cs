@@ -40,11 +40,24 @@ public class Stats : MonoBehaviour
         experienceToNextLevel = 100;
     }
 
+    private IEnumerator FlashSprite(SpriteRenderer sprite)
+    {
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sprite.color = Color.white;
+    }
+
     public void TakeDmg(float dmg)
     {
         //particle effect/flash
         if (isDead)
             return;
+
+        if(GetComponentInChildren<SpriteRenderer>())
+        {
+            StartCoroutine(FlashSprite(GetComponentInChildren<SpriteRenderer>()));
+        }
+
 
         if (GetComponent<PlayerController>())
         {
@@ -110,12 +123,20 @@ public class Stats : MonoBehaviour
             float overflowXP = fameExperience - experienceToNextLevel;
             fameExperience = 0;
             GainExperience(overflowXP);
-            experienceToNextLevel *= 1.15f; //arbitrary multipliers
-            //playerScale *= 1.1f;
-            transform.localScale *= 1.05f;
-            _cFollow.distance *= 1.03f;
-            _cFollow.offsetZ *= 1.03f;
-            _cFollow.offsetX *= 1.03f;
+            // experienceToNextLevel *= 1.15f; //arbitrary multipliers
+            playerScale *= 1.1f;
+            transform.localScale *= 1.25f;
+            _cFollow.distance *= 1.23f;
+            _cFollow.offsetZ *= 1.23f;
+            _cFollow.offsetX *= 1.23f;
+
+            Debug.Log(playerScale);
+
+            // increase player damage
+            Weapon wep = transform.root.GetComponentInChildren<Weapon>();
+            wep.damage += 1;
+
+            GameManager.Instance.Celebrate();
         }
     }
 
@@ -158,7 +179,7 @@ public class Stats : MonoBehaviour
                     e.GetComponentInChildren<Animator>().gameObject.transform.Rotate(-75, 0, 0);
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 1f, 0);
                 }*/
-
+                FindObjectOfType<PlayerController>().GetComponent<Stats>().GainExperience(100);
             }
         }
 

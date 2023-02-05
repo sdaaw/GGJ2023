@@ -233,10 +233,10 @@ MonoBehaviour:
   damage: 1
   owner: {fileID: 7333250503845896468}
   swingTimer: 0
-  swingTimerMax: 1
+  swingTimerMax: 0.4
   canMelee: 1
   swingDuration: 0
-  maxSwingDuration: 1
+  maxSwingDuration: 0.4
   canDealDamage: 0
   meleeForce: 10
 --- !u!1 &7333250503845896474
@@ -358,22 +358,13 @@ MonoBehaviour:
   AllowMovement: 1
   speed: 5
   score: 0
-  heroName: 
-  dashParticle: {fileID: 0}
   m_playerCamera: {fileID: 0}
   m_layerMask:
     serializedVersion: 2
     m_Bits: 0
   animator: {fileID: 0}
-  m_dashMask:
-    serializedVersion: 2
-    m_Bits: 0
-  dashDistance: 5
-  dashCooldown: 1.5
-  canDash: 1
   clips: []
   bgMusic: {fileID: 0}
-  playerDash: {fileID: 0}
   mainHand: {fileID: 7333250503405658988}
   offHand: {fileID: 7333250503405658988}
   comboTimer: 0
@@ -415,7 +406,7 @@ MonoBehaviour:
   isDead: 0
   hasDeadAnim: 0
   scoreOnDeath: 0
-  playerScale: 0
+  playerScale: 1
   levelUpParticle: {fileID: 8020610766515872941}
   isHealing: 0
 --- !u!1001 &6474953823118751630
