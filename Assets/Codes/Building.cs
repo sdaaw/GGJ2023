@@ -29,6 +29,7 @@ public class Building : MonoBehaviour
             }
             BigGoober.GetComponent<BossGoober>().UpdateBuildingStatus();
             BigGoober.GetComponent<BossGoober>().Buildings.Remove(gameObject);
+            GameManager.Instance.score -= 50;
         }
     }
 }
