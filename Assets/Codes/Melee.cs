@@ -45,7 +45,7 @@ public class Melee : Weapon
 
     public void Swing()
     {
-        this.gameObject.tag = "Destroy";
+        //this.gameObject.tag = "Destroy";
         canMelee = false;
         swingTimer = swingTimerMax;
         swingDuration = maxSwingDuration;
@@ -67,6 +67,11 @@ public class Melee : Weapon
         if (other.transform.root != owner && other.gameObject.layer != 0)// && other.gameObject.layer != gameObject.layer)
         {
             Stats s = other.transform.root.GetComponent<Stats>();
+
+            if(other.tag == "building")
+            {
+                other.GetComponent<Building>().TakeDamage(20f);
+            }
 
             if (s != null && canDealDamage && !hitList.Contains(s.GetComponent<GameObject>()))
             {

@@ -14,7 +14,6 @@ public class Building : MonoBehaviour
     {
         health = maxHealth;
         BigGoober.GetComponent<BossGoober>().Buildings.Add(gameObject);
-
     }
 
 
@@ -24,7 +23,10 @@ public class Building : MonoBehaviour
         if(health <= 0)
         {
             SoundManager.PlayASource("Break");
-            GetComponentInChildren<Fracture>().ComputeFracture();
+            if(GetComponentInChildren<Fracture>())
+            {
+                GetComponentInChildren<Fracture>().ComputeFracture();
+            }
             BigGoober.GetComponent<BossGoober>().Buildings.Remove(gameObject);
         }
     }
