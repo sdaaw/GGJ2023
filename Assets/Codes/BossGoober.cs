@@ -55,7 +55,7 @@ public class BossGoober : MonoBehaviour
     }
     void FixedUpdate()
     {
-        MoveToWaypoint(_currentWaypointIndex);
+        if(!GameManager.Instance.isGameFinished) MoveToWaypoint(_currentWaypointIndex);
     }
 
     IEnumerator AttackBuilding(GameObject b)
