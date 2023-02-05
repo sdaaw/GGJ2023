@@ -16,4 +16,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void Play2()
+    {
+        SceneManager.LoadScene("OrtoScene");
+    }
 }

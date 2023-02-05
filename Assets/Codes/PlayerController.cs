@@ -263,5 +263,8 @@ public class PlayerController : MonoBehaviour
 
         if (GetComponentInChildren<Melee>())
             GetComponentInChildren<Melee>().enabled = false;
+
+        Application.LoadLevel("GameOver");
+
     }
 }

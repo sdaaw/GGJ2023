@@ -33646,10 +33646,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 214206803330708241, guid: 74fbda4ccd92bb341833467cc7eca4be,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2717545220140817253, guid: 74fbda4ccd92bb341833467cc7eca4be,
         type: 3}
       propertyPath: m_Name
       value: Citizen (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717545220140817258, guid: 74fbda4ccd92bb341833467cc7eca4be,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2717545220140817262, guid: 74fbda4ccd92bb341833467cc7eca4be,
         type: 3}
@@ -45100,7 +45110,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 425461237}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: Play2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -47846,10 +47856,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5170613846922823282, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5404561684632600225, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
         type: 3}
       propertyPath: m_Name
       value: Building5 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831859546130677988, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5893432716967938205, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
         type: 3}

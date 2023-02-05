@@ -46067,10 +46067,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5170613846922823282, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170613846922823283, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 5404561684632600225, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
         type: 3}
       propertyPath: m_Name
       value: Building5 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831859546130677988, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5893432716967938205, guid: 2a7f45e9b775c8d41828cb0a7aeeb48e,
         type: 3}

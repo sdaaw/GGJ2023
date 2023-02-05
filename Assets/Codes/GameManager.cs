@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -87,7 +86,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Score: " + score.ToString("F0");
+        scoreText.text = score.ToString("F0");
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
     }
 
     private void RefreshScore()

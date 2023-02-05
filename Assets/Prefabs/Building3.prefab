@@ -217,8 +217,7 @@ MonoBehaviour:
     triggerType: 1
     minimumCollisionForce: 100
     filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - Destroy
+    triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
     fragmentCount: 15

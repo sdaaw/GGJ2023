@@ -38113,6 +38113,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Citizen (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2717545220140817253, guid: 74fbda4ccd92bb341833467cc7eca4be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2717545220140817262, guid: 74fbda4ccd92bb341833467cc7eca4be,
         type: 3}
       propertyPath: m_RootOrder
@@ -46128,7 +46133,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1877139172}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: Play2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -59491,6 +59496,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Citizen (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717545220140817253, guid: 74fbda4ccd92bb341833467cc7eca4be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2717545220140817258, guid: 74fbda4ccd92bb341833467cc7eca4be,
         type: 3}

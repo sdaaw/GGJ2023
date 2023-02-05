@@ -45,7 +45,7 @@ public class Melee : Weapon
 
     public void Swing()
     {
-        //this.gameObject.tag = "Destroy";
+        this.gameObject.tag = "Destroy";
         canMelee = false;
         swingTimer = swingTimerMax;
         swingDuration = maxSwingDuration;
@@ -71,14 +71,10 @@ public class Melee : Weapon
 
             if(other.GetComponent<Fracture>() && owner.GetComponent<PlayerController>())
             {
-                Rigidbody r = other.GetComponent<Rigidbody>();
-                if (canDealDamage && !hitList.Contains(r.gameObject))
+                if (canDealDamage && !hitList.Contains(other.gameObject))
                 {
-                    r.isKinematic = false;
-                    r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
-                    print("XD");
                     other.GetComponentInParent<Building>().TakeDamage(20f);
-                    hitList.Add(r.gameObject);
+                    hitList.Add(other.gameObject);
                 }
             }
 
@@ -88,20 +84,27 @@ public class Melee : Weapon
                 hitList.Add(s.GetComponent<GameObject>());
             }
 
-            /*Rigidbody r = other.GetComponent<Rigidbody>();
-
-            if (r != null && (r.gameObject.layer == 8 || r.gameObject.layer == 7))
+            Rigidbody r = other.GetComponent<Rigidbody>();
+            if (r != null && (r.gameObject.layer == 8 || r.gameObject.layer == 7) && canDealDamage && !hitList.Contains(r.gameObject))
             {
-                if (canDealDamage && !hitList.Contains(r.gameObject))
+                r.isKinematic = false;
+                r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
+            }
+
+                /*Rigidbody r = other.GetComponent<Rigidbody>();
+
+                if (r != null && (r.gameObject.layer == 8 || r.gameObject.layer == 7))
                 {
-                    //TODO: Somekind of condtion for breaking
+                    if (canDealDamage && !hitList.Contains(r.gameObject))
+                    {
+                        //TODO: Somekind of condtion for breaking
 
-                    r.isKinematic = false;
+                        r.isKinematic = false;
 
-                    hitList.Add(r.gameObject);
-                    r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
-                }
-            }*/
-        }
+                        hitList.Add(r.gameObject);
+                        r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
+                    }
+                }*/
+            }
     }
 }
