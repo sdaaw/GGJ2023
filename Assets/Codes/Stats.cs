@@ -276,6 +276,8 @@ public class Stats : MonoBehaviour
 
         if (GetComponent<BossGoober>())
         {
+            if (GetComponentInChildren<Animator>())
+                GetComponentInChildren<Animator>().SetTrigger("Death");
             GameManager.Instance.EndGame();
         }
 
