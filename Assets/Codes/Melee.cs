@@ -68,9 +68,18 @@ public class Melee : Weapon
         {
             Stats s = other.transform.root.GetComponent<Stats>();
 
-            if(other.tag == "building")
+
+            if(other.GetComponent<Fracture>() && owner.GetComponent<PlayerController>())
             {
-                other.GetComponent<Building>().TakeDamage(20f);
+                Rigidbody r = other.GetComponent<Rigidbody>();
+                if (canDealDamage && !hitList.Contains(r.gameObject))
+                {
+                    r.isKinematic = false;
+                    r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
+                    print("XD");
+                    other.GetComponentInParent<Building>().TakeDamage(20f);
+                    hitList.Add(r.gameObject);
+                }
             }
 
             if (s != null && canDealDamage && !hitList.Contains(s.GetComponent<GameObject>()))
@@ -79,7 +88,7 @@ public class Melee : Weapon
                 hitList.Add(s.GetComponent<GameObject>());
             }
 
-            Rigidbody r = other.GetComponent<Rigidbody>();
+            /*Rigidbody r = other.GetComponent<Rigidbody>();
 
             if (r != null && (r.gameObject.layer == 8 || r.gameObject.layer == 7))
             {
@@ -92,7 +101,7 @@ public class Melee : Weapon
                     hitList.Add(r.gameObject);
                     r.AddForceAtPosition(this.transform.forward * meleeForce, r.position - other.transform.position);
                 }
-            }
+            }*/
         }
     }
 }

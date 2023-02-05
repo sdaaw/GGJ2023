@@ -27,6 +27,7 @@ public class Building : MonoBehaviour
             {
                 GetComponentInChildren<Fracture>().ComputeFracture();
             }
+            BigGoober.GetComponent<BossGoober>().UpdateBuildingStatus();
             BigGoober.GetComponent<BossGoober>().Buildings.Remove(gameObject);
         }
     }
