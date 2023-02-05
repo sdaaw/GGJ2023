@@ -28,7 +28,7 @@ public class Fracture : MonoBehaviour
     {
         var mesh = this.GetComponent<MeshFilter>().mesh;
         Debug.Log("Positions");
-
+        
         var positions = mesh.vertices;
         var normals = mesh.normals;
         var uvs = mesh.uv;
@@ -120,7 +120,7 @@ public class Fracture : MonoBehaviour
     /// Compute the fracture and create the fragments
     /// </summary>
     /// <returns></returns>
-    private void ComputeFracture()
+    public void ComputeFracture()
     {
         var mesh = this.GetComponent<MeshFilter>().sharedMesh;
 

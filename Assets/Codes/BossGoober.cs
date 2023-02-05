@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BossGoober : MonoBehaviour
 {
-
 
     public List<Transform> WaypointList = new List<Transform>();
     public float movementSpeed;
@@ -21,12 +21,19 @@ public class BossGoober : MonoBehaviour
 
     [SerializeField]
     private float _switchDistance;
+
+    private int _randomRoll;
+
+    private bool _attackBuilding;
+
+    private GameObject _closestBuilding;
     void Start()
     {
         m_anim = GetComponentInChildren<Animator>();
         spawnPosition = WaypointList[0].transform.position;
         _sr = GetComponentInChildren<SpriteRenderer>();
         _sr.flipX = false;
+        StartCoroutine(RollRandomBuildingAttack());
     }
     void FixedUpdate()
     {
@@ -35,25 +42,67 @@ public class BossGoober : MonoBehaviour
 
     public void AttackBuilding(GameObject b)
     {
-
+        m_anim.SetTrigger("Attack1");
+        b.GetComponent<Building>().health -= 10f;
+        _attackBuilding = false;
     }
 
+
+    IEnumerator RollRandomBuildingAttack()
+    {
+        _randomRoll = Random.Range(0, 100);
+        if(_randomRoll > 70)
+        {
+
+            _closestBuilding = GetClosestBuilding();
+            _attackBuilding = true;
+        }
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(RollRandomBuildingAttack());
+    }
+
+    public GameObject GetClosestBuilding()
+    {
+        float dist = 999f;
+        GameObject bb = null;
+        foreach (GameObject b in Buildings)
+        {
+            float d = Vector3.Distance(b.transform.position, transform.position);
+            if (d < dist)
+            {
+                dist = d;
+                bb = b;
+            }
+        }
+        return bb;
+    }
     public void MoveToWaypoint(int index)
     {
         //transform.LookAt(WaypointList[index]);
-        transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, 4.5f, transform.position.z), 
-            WaypointList[index].position, movementSpeed * Time.deltaTime);
-        //transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-        if (Vector3.Distance(WaypointList[_currentWaypointIndex].transform.position, transform.position) <= _switchDistance)
+        if (_attackBuilding)
         {
-            if(_currentWaypointIndex + 1 >= WaypointList.Count)
+            transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, 4.5f, transform.position.z), _closestBuilding.transform.position, movementSpeed / 2 * Time.deltaTime);
+            if(Vector3.Distance(_closestBuilding.transform.position, transform.position) <= 1f)
             {
-                _sr.flipX = !_sr.flipX;
-                WaypointList.Reverse();
-                _currentWaypointIndex = 0;
-            } else
+                AttackBuilding(_closestBuilding);
+            }
+        } else
+        {
+            transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, 4.5f, transform.position.z),
+                                                        WaypointList[index].position, movementSpeed * Time.deltaTime);
+            //transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+            if (Vector3.Distance(WaypointList[_currentWaypointIndex].transform.position, transform.position) <= _switchDistance)
             {
-                _currentWaypointIndex++;
+                if (_currentWaypointIndex + 1 >= WaypointList.Count)
+                {
+                    _sr.flipX = !_sr.flipX;
+                    WaypointList.Reverse();
+                    _currentWaypointIndex = 0;
+                }
+                else
+                {
+                    _currentWaypointIndex++;
+                }
             }
         }
     }
