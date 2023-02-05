@@ -40,11 +40,24 @@ public class Stats : MonoBehaviour
         experienceToNextLevel = 100;
     }
 
+    private IEnumerator FlashSprite(SpriteRenderer sprite)
+    {
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sprite.color = Color.white;
+    }
+
     public void TakeDmg(float dmg)
     {
         //particle effect/flash
         if (isDead)
             return;
+
+        if(GetComponentInChildren<SpriteRenderer>())
+        {
+            StartCoroutine(FlashSprite(GetComponentInChildren<SpriteRenderer>()));
+        }
+
 
         if (GetComponent<PlayerController>())
         {

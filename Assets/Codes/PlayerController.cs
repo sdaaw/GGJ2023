@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         if(comboStarted)
         {
             comboTimer += 1 * Time.deltaTime;
-            if (comboTimer > 1.5f)
+            if (comboTimer > 1)
             {
                 comboTimer = 0;
                 currComboIdx = 0;
