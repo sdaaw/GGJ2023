@@ -20,7 +20,7 @@ public class Building : MonoBehaviour
     {
         print("atak!!");
         health -= amount;
-        if(health < 0)
+        if(health <= 0)
         {
             GetComponentInChildren<Fracture>().ComputeFracture();
             BigGoober.GetComponent<BossGoober>().Buildings.Remove(gameObject);

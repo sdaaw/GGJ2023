@@ -46,7 +46,7 @@ public class BossGoober : MonoBehaviour
         m_anim.SetTrigger("Attack");
         _attackBuilding = false;
         yield return new WaitForSeconds(0.5f);
-        b.GetComponent<Building>().TakeDamage(10f);
+        b.GetComponent<Building>().TakeDamage(60f);
     }
 
 
