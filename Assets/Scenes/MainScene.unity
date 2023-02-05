@@ -49441,6 +49441,8 @@ MonoBehaviour:
   PlayerUI: {fileID: 394884524}
   playerTakeDamageEffect: {fileID: 1419989674}
   playerHealthbar: {fileID: 1925429064}
+  score: 0
+  scoreText: {fileID: 1341882036}
 --- !u!4 &1399669185
 Transform:
   m_ObjectHideFlags: 0
