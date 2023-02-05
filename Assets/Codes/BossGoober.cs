@@ -27,6 +27,7 @@ public class BossGoober : MonoBehaviour
     private bool _attackBuilding;
 
     private GameObject _closestBuilding;
+
     void Start()
     {
         m_anim = GetComponentInChildren<Animator>();
@@ -39,7 +40,6 @@ public class BossGoober : MonoBehaviour
     {
         MoveToWaypoint(_currentWaypointIndex);
     }
-
 
     IEnumerator AttackBuilding(GameObject b)
     {
