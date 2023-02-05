@@ -98,6 +98,10 @@ public class Stats : MonoBehaviour
             SoundManager.PlayASource("lose");
 
             StartCoroutine(PlayerTakeDamageEffect());
+
+            if(GetComponentInChildren<Animator>())
+                GetComponentInChildren<Animator>().SetTrigger("TakeDamage");
+
         }
 
         health -= dmg;
@@ -108,6 +112,9 @@ public class Stats : MonoBehaviour
         {
             GetComponent<Enemy>().FlashHealthBar();
             GetComponent<Enemy>().chase = true;
+
+            if (GetComponentInChildren<Animator>())
+                GetComponentInChildren<Animator>().SetTrigger("TakeDamage");
 
             /*int r = Random.Range(0, 2);
             if (!isDead && !GetComponent<Enemy>().isMelee)
