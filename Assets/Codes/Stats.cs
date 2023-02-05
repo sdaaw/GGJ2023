@@ -280,7 +280,7 @@ public class Stats : MonoBehaviour
                 GetComponentInChildren<Animator>().SetTrigger("Death");
             GameManager.Instance.EndGame();
         }
-
-        Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 }
