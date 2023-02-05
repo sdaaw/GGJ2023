@@ -220,6 +220,9 @@ public class Fracture : MonoBehaviour
             this.fractureOptions.insideMaterial
         };
 
+        obj.GetComponent<RemovePhysics>().sliceMaterial = GetComponent<MeshRenderer>().sharedMaterial;
+        obj.GetComponent<RemovePhysics>().sliceMaterialInside = fractureOptions.insideMaterial;
+
         // Copy collider properties to fragment
         var thisCollider = this.GetComponent<Collider>();
         var fragmentCollider = obj.AddComponent<MeshCollider>();

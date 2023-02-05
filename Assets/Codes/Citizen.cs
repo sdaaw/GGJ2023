@@ -154,6 +154,15 @@ public class Citizen : MonoBehaviour
         {
             celebrationParticle.Play();
         }
+        if (Random.Range(0, 1000) > 990)
+        {
+            ChatPopup chat = GetComponentInChildren<ChatPopup>();
+            if (chat != null)
+            {
+                chat.DisplayMessage();
+                // chat.StartCoroutine(chat.DisplayMessageTime(chat.GetRandomMessage(), 1));
+            }
+        }
         _playerStats.GainExperience(1); //arbitrary number of experience gained
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
@@ -180,13 +189,6 @@ public class Citizen : MonoBehaviour
         if(anim != null)
             anim.SetTrigger("Celebrate");
 
-
-        ChatPopup chat = GetComponentInChildren<ChatPopup>();
-        if (chat != null)
-        {
-            chat.DisplayMessage();
-            // chat.StartCoroutine(chat.DisplayMessageTime(chat.GetRandomMessage(), 1));
-        }
 
 
     }

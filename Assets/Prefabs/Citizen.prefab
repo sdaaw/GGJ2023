@@ -228,8 +228,9 @@ MonoBehaviour:
   messages_to_set:
   - GO! GO!
   - \(^_^)/
-  - gg
+  - GG!
   - My hero!
+  - SAVIOUR
   textField: {fileID: 7934381189315528599}
 --- !u!1 &3033307442740709131
 GameObject:
