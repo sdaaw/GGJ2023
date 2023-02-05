@@ -49443,7 +49443,7 @@ MonoBehaviour:
   playerHealthbar: {fileID: 1925429064}
   score: 0
   scoreText: {fileID: 62451036}
-  finalScoreText: {fileID: 0}
+  finalScoreText: {fileID: 62451036}
   gameEndPanel: {fileID: 1796876304}
   isGameFinished: 0
 --- !u!4 &1399669185

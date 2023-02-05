@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
     {
         isGameFinished = true;
         gameEndPanel.gameObject.SetActive(true);
-        scoreText.text = finalScoreText.ToString();
+        finalScoreText.text = score.ToString();
         foreach (GameObject c in Citizens)
         {
             c.GetComponent<Citizen>().StartCelebration();
