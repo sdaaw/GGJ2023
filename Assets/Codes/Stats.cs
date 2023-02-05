@@ -38,13 +38,30 @@ public class Stats : MonoBehaviour
         fameLevel = 1;
         fameExperience = 0;
         experienceToNextLevel = 100;
+
+        if (GetComponentInChildren<SpriteRenderer>())
+        {
+            GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        }
+       
     }
 
     private IEnumerator FlashSprite(SpriteRenderer sprite)
     {
         sprite.color = Color.red;
+        //sprite.material.SetColor("_EmissionColor", new Color(10, 10, 10));
         yield return new WaitForSeconds(0.1f);
+        //sprite.material.SetColor("_EmissionColor", new Color(1, 1, 1));
         sprite.color = Color.white;
+    }
+
+    private IEnumerator PlayerTakeDamageEffect()
+    {
+        GameManager.Instance.playerTakeDamageEffect.SetActive(true);
+        //sprite.material.SetColor("_EmissionColor", new Color(10, 10, 10));
+        yield return new WaitForSeconds(0.1f);
+        //sprite.material.SetColor("_EmissionColor", new Color(1, 1, 1));
+        GameManager.Instance.playerTakeDamageEffect.SetActive(false);
     }
 
     public void TakeDmg(float dmg)
@@ -64,6 +81,8 @@ public class Stats : MonoBehaviour
             //player takes damage sound
             //PlayerController pc = GetComponent<PlayerController>();
             SoundManager.PlayASource("lose");
+
+            StartCoroutine(PlayerTakeDamageEffect());
         }
 
         health -= dmg;
@@ -131,11 +150,14 @@ public class Stats : MonoBehaviour
             _cFollow.offsetZ *= 1.23f;
             _cFollow.offsetX *= 1.23f;
 
+            GetComponent<PlayerController>().speed *= 1.15f;
+
             // Debug.Log(playerScale);
+            Heal(2, 2);
 
             // increase player damage
             Weapon wep = transform.root.GetComponentInChildren<Weapon>();
-            wep.damage += 1;
+            wep.damage += .5F;
 
             GameManager.Instance.Celebrate();
         }
@@ -152,6 +174,9 @@ public class Stats : MonoBehaviour
             if (health >= maxHealth)
                 health = maxHealth;
             totalHealed += healPerSecond;
+
+            if (GetComponent<PlayerController>())
+                GetComponent<PlayerController>().UpdateHealthImage();
             yield return new WaitForSeconds(1);
         }
 

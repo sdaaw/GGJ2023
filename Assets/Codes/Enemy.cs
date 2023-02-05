@@ -281,7 +281,7 @@ public class Enemy : MonoBehaviour
 
                 if(isRanged)
                 {
-                    SoundManager.PlayASource("EnemyShootShoot");
+                    SoundManager.PlayASource("EnemyShoot");
                 }
                 else if(isMelee)
                 {

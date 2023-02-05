@@ -17,6 +17,7 @@ public class SpawnExplosion : MonoBehaviour
     {
         if(_stats && _stats.health <= 0)
         {
+            SoundManager.PlayASource("Explosion");
             Explode();
             Destroy(this.gameObject);
         }

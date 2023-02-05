@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfcd3a1a33a8774880116f7c14a4352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 2
   owner: {fileID: 738854385424140886}
   swingTimer: 0
   swingTimerMax: 3
@@ -826,8 +826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b640ef30488787d40af410a9550e2f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOnly: 0
-  yOnly: 0
 --- !u!1 &8632283558724798265
 GameObject:
   m_ObjectHideFlags: 0

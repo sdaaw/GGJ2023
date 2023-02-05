@@ -69,6 +69,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DoMelee();
+    }
+
     private void Update()
     {
         if (isDead)
@@ -139,47 +144,52 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            comboStarted = true;
-            if(mainHand.canMelee)
+            DoMelee();
+        }
+    }
+
+    private void DoMelee()
+    {
+        comboStarted = true;
+        if (mainHand.canMelee)
+        {
+
+            switch (currComboIdx)
             {
+                case 0:
+                    if (m_anim != null)
+                    {
+                        m_anim.SetTrigger("Attack1");
+                        m_anim.speed = mainHand.swingTimerMax;
+                    }
 
-                switch (currComboIdx)
-                {      
-                    case 0:
-                        if(m_anim != null)
-                        {
-                            m_anim.SetTrigger("Attack1");
-                            m_anim.speed = mainHand.swingTimerMax;
-                        }
-                      
-                        mainHand.Swing();
-                        currComboIdx++;
-                        comboTimer = 0;
-                        SoundManager.PlayASource("Melee1");
-                        break;
-                    case 1:
-                        if (m_anim != null)
-                        {
-                            m_anim.SetTrigger("Attack2");
-                            m_anim.speed = mainHand.swingTimerMax;
-                        }
+                    mainHand.Swing();
+                    currComboIdx++;
+                    comboTimer = 0;
+                    SoundManager.PlayASource("Melee1");
+                    break;
+                case 1:
+                    if (m_anim != null)
+                    {
+                        m_anim.SetTrigger("Attack2");
+                        m_anim.speed = mainHand.swingTimerMax;
+                    }
 
-                        mainHand.Swing();
-                        currComboIdx++;
-                        comboTimer = 0;
-                        SoundManager.PlayASource("Melee1");
-                        break;
-                    case 2:
-                        if (m_anim != null)
-                        {
-                            m_anim.SetTrigger("Attack3");
-                        }
-                           
-                        mainHand.Swing();
-                        currComboIdx = 0;
-                        SoundManager.PlayASource("Melee2");
-                        break;
-                }
+                    mainHand.Swing();
+                    currComboIdx++;
+                    comboTimer = 0;
+                    SoundManager.PlayASource("Melee1");
+                    break;
+                case 2:
+                    if (m_anim != null)
+                    {
+                        m_anim.SetTrigger("Attack3");
+                    }
+
+                    mainHand.Swing();
+                    currComboIdx = 0;
+                    SoundManager.PlayASource("Melee2");
+                    break;
             }
         }
     }
@@ -236,7 +246,9 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateHealthImage()
     {
-        int hp = (int)m_stats.health;
+        //int hp = (int)m_stats.health;
+        if (GameManager.Instance.playerHealthbar)
+            GameManager.Instance.playerHealthbar.value = m_stats.health / m_stats.maxHealth;
         //playerHp.sprite = playerHps[hp];
     }
 
