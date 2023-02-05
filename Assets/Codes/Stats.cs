@@ -224,6 +224,7 @@ public class Stats : MonoBehaviour
                 }*/
                 FindObjectOfType<PlayerController>().GetComponent<Stats>().GainExperience(50);
                 SoundManager.PlayASource("win");
+                GameManager.Instance.score += (100 * FindObjectOfType<PlayerController>().GetComponent<Stats>().playerScale);
             }
         }
 

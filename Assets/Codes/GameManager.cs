@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
     public GameObject playerTakeDamageEffect;
     public Slider playerHealthbar;
 
+    public float score = 0;
+
+    public TMP_Text scoreText;
+
 
 
     private void Awake()
@@ -79,7 +84,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        scoreText.text = "Score: " + score.ToString("F0");
+    }
+
+    private void RefreshScore()
+    {
+
     }
 
     public void Celebrate()
