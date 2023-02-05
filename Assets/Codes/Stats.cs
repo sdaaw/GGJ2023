@@ -272,6 +272,13 @@ public class Stats : MonoBehaviour
         else
             yield return new WaitForSeconds(0.1f);
 
+
+
+        if (GetComponent<BossGoober>())
+        {
+            GameManager.Instance.EndGame();
+        }
+
         Destroy(gameObject);
     }
 }

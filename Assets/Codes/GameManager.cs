@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,8 +57,7 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text scoreText;
 
-
-
+    public Image gameEndPanel;
     private void Awake()
     {
         if (Instance == null)
@@ -173,5 +173,11 @@ public class GameManager : MonoBehaviour
                 sr.color.b - UnityEngine.Random.Range(0.1f, 0.3f));
             GoobersAlive.Add(a);
         }
+    }
+
+    public void EndGame()
+    {
+        gameEndPanel.gameObject.SetActive(true);
+        scoreText.text = "";
     }
 }
