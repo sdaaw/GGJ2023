@@ -166,6 +166,7 @@ public class Stats : MonoBehaviour
             _cFollow.offsetX *= 1.23f;
 
             GetComponent<PlayerController>().speed *= 1.15f;
+            GetComponent<Rigidbody>().mass *= 1.2f;
 
             // Debug.Log(playerScale);
             Heal(2, 2);
