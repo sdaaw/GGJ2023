@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         if(comboStarted)
         {
             comboTimer += 1 * Time.deltaTime;
-            if (comboTimer > 1)
+            if (comboTimer > .75f)
             {
                 comboTimer = 0;
                 currComboIdx = 0;
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
                       
                         mainHand.Swing();
                         currComboIdx++;
-                        comboTimer -= 1;
+                        comboTimer = 0;
                         //SoundManager.PlayASource("YetiSound1");
                         break;
                     case 1:
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
                         mainHand.Swing();
                         currComboIdx++;
-                        comboTimer -= 1;
+                        comboTimer = 0;
                         break;
                     case 2:
                         if (m_anim != null)
