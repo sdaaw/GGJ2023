@@ -222,7 +222,7 @@ public class Stats : MonoBehaviour
                     e.GetComponentInChildren<Animator>().gameObject.transform.Rotate(-75, 0, 0);
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 1f, 0);
                 }*/
-                FindObjectOfType<PlayerController>().GetComponent<Stats>().GainExperience(100);
+                FindObjectOfType<PlayerController>().GetComponent<Stats>().GainExperience(50);
                 SoundManager.PlayASource("win");
             }
         }

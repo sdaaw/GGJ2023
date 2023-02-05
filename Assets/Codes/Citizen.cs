@@ -197,11 +197,11 @@ public class Citizen : MonoBehaviour
 
         float colorSpeed = 1f;
 
-        _material.color = Color.Lerp(_material.color, _targetColor, Mathf.PingPong(Time.time, colorSpeed));
+        /*_material.color = Color.Lerp(_material.color, _targetColor, Mathf.PingPong(Time.time, colorSpeed));
         if (_material.color == _targetColor)
         {
             _targetColor = new Color(Random.Range(0.5f, 1f), Random.Range(0f, 0.2f), Random.Range(0.5f, 1f));
-        }
+        }*/
 
         _cheerTimer += 1 * Time.deltaTime;
         if (_cheerTimer >= cheerTime)
