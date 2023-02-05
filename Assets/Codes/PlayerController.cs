@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (AllowMovement)
+        if (AllowMovement && !GameManager.Instance.isGameFinished)
         {
             DoMovement();
             Rotate(m_move);

@@ -49442,7 +49442,10 @@ MonoBehaviour:
   playerTakeDamageEffect: {fileID: 1419989674}
   playerHealthbar: {fileID: 1925429064}
   score: 0
-  scoreText: {fileID: 1341882036}
+  scoreText: {fileID: 62451036}
+  finalScoreText: {fileID: 62451036}
+  gameEndPanel: {fileID: 1796876304}
+  isGameFinished: 0
 --- !u!4 &1399669185
 Transform:
   m_ObjectHideFlags: 0
