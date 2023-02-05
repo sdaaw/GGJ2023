@@ -31,6 +31,8 @@ public class Stats : MonoBehaviour
 
     private CameraFollow _cFollow;
 
+    private bool isBossGoober;
+
     void Start()
     {
         _cFollow = FindObjectOfType<Camera>().GetComponent<CameraFollow>();
@@ -42,6 +44,10 @@ public class Stats : MonoBehaviour
         if (GetComponentInChildren<SpriteRenderer>())
         {
             GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        }
+        if(GetComponentInChildren<BossGoober>())
+        {
+            isBossGoober = true;
         }
        
     }
@@ -66,6 +72,15 @@ public class Stats : MonoBehaviour
 
     public void TakeDmg(float dmg)
     {
+
+        if(isBossGoober)
+        {
+            if(GameManager.Instance.player.GetComponent<Stats>().fameLevel < 5)
+            {
+                //cant damage
+                return;
+            }
+        }
         //particle effect/flash
         if (isDead)
             return;
