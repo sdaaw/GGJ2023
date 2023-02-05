@@ -122,6 +122,7 @@ public class Fracture : MonoBehaviour
     /// <returns></returns>
     public void ComputeFracture()
     {
+        print("HELLO???????");
         var mesh = this.GetComponent<MeshFilter>().sharedMesh;
 
         if (mesh != null)

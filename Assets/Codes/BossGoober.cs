@@ -40,24 +40,25 @@ public class BossGoober : MonoBehaviour
         MoveToWaypoint(_currentWaypointIndex);
     }
 
-    public void AttackBuilding(GameObject b)
+
+    IEnumerator AttackBuilding(GameObject b)
     {
-        m_anim.SetTrigger("Attack1");
-        b.GetComponent<Building>().health -= 10f;
+        m_anim.SetTrigger("Attack");
         _attackBuilding = false;
+        yield return new WaitForSeconds(0.5f);
+        b.GetComponent<Building>().TakeDamage(10f);
     }
 
 
     IEnumerator RollRandomBuildingAttack()
     {
         _randomRoll = Random.Range(0, 100);
-        if(_randomRoll > 70)
+        if(_randomRoll > 40 && !_attackBuilding)
         {
-
             _closestBuilding = GetClosestBuilding();
             _attackBuilding = true;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         StartCoroutine(RollRandomBuildingAttack());
     }
 
@@ -82,9 +83,9 @@ public class BossGoober : MonoBehaviour
         if (_attackBuilding)
         {
             transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, 4.5f, transform.position.z), _closestBuilding.transform.position, movementSpeed / 2 * Time.deltaTime);
-            if(Vector3.Distance(_closestBuilding.transform.position, transform.position) <= 1f)
+            if(Vector3.Distance(_closestBuilding.transform.position, transform.position) <= 6f)
             {
-                AttackBuilding(_closestBuilding);
+                StartCoroutine(AttackBuilding(_closestBuilding));
             }
         } else
         {

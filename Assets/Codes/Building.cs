@@ -12,21 +12,18 @@ public class Building : MonoBehaviour
 
     void Start()
     {
-        health = 50f;
-        maxHealth = 50f;
 
         BigGoober.GetComponent<BossGoober>().Buildings.Add(gameObject);
     }
 
     public void TakeDamage(float amount)
     {
-        GetComponentInChildren<Fracture>().ComputeFracture();//move below!!!!!!
+        print("atak!!");
         health -= amount;
         if(health < 0)
         {
+            GetComponentInChildren<Fracture>().ComputeFracture();
             BigGoober.GetComponent<BossGoober>().Buildings.Remove(gameObject);
-            //GetComponentInChildren<Fracture>().ComputeFracture();
-
         }
     }
 }
