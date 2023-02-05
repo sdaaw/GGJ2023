@@ -123,12 +123,20 @@ public class Stats : MonoBehaviour
             float overflowXP = fameExperience - experienceToNextLevel;
             fameExperience = 0;
             GainExperience(overflowXP);
-            experienceToNextLevel *= 1.15f; //arbitrary multipliers
-            //playerScale *= 1.1f;
-            transform.localScale *= 1.05f;
-            _cFollow.distance *= 1.03f;
-            _cFollow.offsetZ *= 1.03f;
-            _cFollow.offsetX *= 1.03f;
+            // experienceToNextLevel *= 1.15f; //arbitrary multipliers
+            playerScale *= 1.1f;
+            transform.localScale *= 1.25f;
+            _cFollow.distance *= 1.23f;
+            _cFollow.offsetZ *= 1.23f;
+            _cFollow.offsetX *= 1.23f;
+
+            Debug.Log(playerScale);
+
+            // increase player damage
+            Weapon wep = transform.root.GetComponentInChildren<Weapon>();
+            wep.damage += 1;
+
+            GameManager.Instance.Celebrate();
         }
     }
 
@@ -171,7 +179,7 @@ public class Stats : MonoBehaviour
                     e.GetComponentInChildren<Animator>().gameObject.transform.Rotate(-75, 0, 0);
                     e.GetComponentInChildren<Animator>().gameObject.transform.position += new Vector3(0, 1f, 0);
                 }*/
-
+                FindObjectOfType<PlayerController>().GetComponent<Stats>().GainExperience(100);
             }
         }
 

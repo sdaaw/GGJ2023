@@ -74,12 +74,12 @@ public class Citizen : MonoBehaviour
             }
         }*/
 
-        if(Input.GetKeyUp(KeyCode.R))
+        /*if(Input.GetKeyUp(KeyCode.R))
         {
             _targetPosition = GameManager.Instance.player.transform.position;
-            print(_targetPosition);
+            //print(_targetPosition);
             _cState = CitizenState.WalkingToPos;
-        }
+        }*/
     }
 
 
@@ -110,6 +110,12 @@ public class Citizen : MonoBehaviour
         return new Quaternion(transform.rotation.x, Random.rotation.y, transform.rotation.z, Random.rotation.w);
     }
 
+    public void StartCelebration()
+    {
+        _targetPosition = FindObjectOfType<PlayerController>().transform.position;
+        _cState = CitizenState.WalkingToPos;
+    }
+
 
     private void FixedUpdate()
     {
@@ -132,7 +138,7 @@ public class Citizen : MonoBehaviour
 
     public void MoveTowardsPoint(Vector3 pos)
     {
-        transform.LookAt(new Vector3(pos.x, transform.position.y, transform.position.x));
+        transform.LookAt(new Vector3(pos.x, transform.position.y, pos.z));
         transform.position += transform.forward * (movementSpeed * 3f) * Time.deltaTime;
         RaycastHit fwdRay;
         if (Physics.Raycast(transform.position, transform.forward, out fwdRay, 2f))
@@ -163,7 +169,7 @@ public class Citizen : MonoBehaviour
                 // chat.StartCoroutine(chat.DisplayMessageTime(chat.GetRandomMessage(), 1));
             }
         }
-        _playerStats.GainExperience(1); //arbitrary number of experience gained
+        //_playerStats.GainExperience(1); //arbitrary number of experience gained
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
         //transform.LookAt(player.transform);

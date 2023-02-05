@@ -406,7 +406,7 @@ MonoBehaviour:
   isDead: 0
   hasDeadAnim: 0
   scoreOnDeath: 0
-  playerScale: 0
+  playerScale: 1
   levelUpParticle: {fileID: 8020610766515872941}
   isHealing: 0
 --- !u!1001 &6474953823118751630
