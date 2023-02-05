@@ -26,17 +26,11 @@ public class Enemy : MonoBehaviour
 
     public bool isMelee;
     public bool isRanged;
-    public bool isScout;
-    public bool hasArrivedBase;
     public float escapeDistance;
-
-    public GameObject homeCamp;
 
     private Animator m_anim;
 
     public Weapon curWeapon;
-
-    public bool isEatable;
 
     private SpriteRenderer sr;
 
@@ -200,41 +194,6 @@ public class Enemy : MonoBehaviour
                     m_anim.SetFloat("Speed", 0);
             }
         }
-        //add scout who runs
-        else if(isScout)
-        {
-            if (chase)
-            {
-                if (pc != null)
-                    transform.LookAt(pc.transform.position);
-
-                if(homeCamp != null && Vector3.Distance(transform.position, homeCamp.transform.position) <= 5)
-                {
-                    hasArrivedBase = true;
-                    chase = false;
-                }
-
-                // run to home base
-                if(homeCamp != null && !hasArrivedBase)
-                    Move((homeCamp.transform.position - transform.position).normalized);
-                else if (Vector3.Distance(transform.position, lastSeenSpot) <= escapeDistance)
-                {
-                    Move((transform.position - lastSeenSpot).normalized);
-                }
-
-                if (m_anim != null)
-                    m_anim.SetFloat("Speed", 1);//Mathf.Abs((lastSeenSpot - transform.position).normalized.magnitude));
-
-                if (Vector3.Distance(transform.position, pc.transform.position) >= 17 && hasArrivedBase)
-                    chase = false;
-
-            }
-            else
-            {
-                if (m_anim != null)
-                    m_anim.SetFloat("Speed", 0);
-            }
-        }
 
         if(transform.position.y < -20)
         {
@@ -323,23 +282,6 @@ public class Enemy : MonoBehaviour
                 if(isRanged)
                 {
                     SoundManager.PlayASource("EnemyShootShoot");
-                }
-                else if(isScout)
-                {
-                    int line = Random.Range(0, 3);
-
-                    switch (line)
-                    {
-                        case 0:
-                            SoundManager.PlayASource("SomethingOnTheHill");
-                            break;
-                        case 1:
-                            SoundManager.PlayASource("SomethingOnTheHill2");
-                            break;
-                        case 2:
-                            SoundManager.PlayASource("SomethingOnTheHill3");
-                            break;
-                    }
                 }
                 else if(isMelee)
                 {

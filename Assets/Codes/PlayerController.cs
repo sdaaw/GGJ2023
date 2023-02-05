@@ -9,12 +9,9 @@ public class PlayerController : MonoBehaviour
     public float speed;
 
     public float score;
-    public string heroName;
 
     private Rigidbody m_rigidbody;
     private Transform m_transform;
-
-    public ParticleSystem dashParticle;
 
     private Quaternion m_oldRotation;
     private float m_horAxis;
@@ -30,21 +27,10 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    [SerializeField]
-    private LayerMask m_dashMask;
-
-    public float dashDistance;
-    public float dashCooldown;
-    public bool canDash = true;
-    private bool m_allowDash;
-
     public List<AudioClip> clips = new List<AudioClip>();
     public AudioSource bgMusic;
 
     private Animator m_anim;
-
-    public Image playerDash;
-    private float dashTimerForUI;
 
     private Stats m_stats;
 
@@ -68,7 +54,6 @@ public class PlayerController : MonoBehaviour
     {
         m_transform = transform;
         m_rigidbody = GetComponent<Rigidbody>();
-        m_allowDash = true;
         m_playerCamera = FindObjectOfType<Camera>();
         m_anim = GetComponentInChildren<Animator>();
         m_stats = GetComponent<Stats>();
@@ -82,7 +67,6 @@ public class PlayerController : MonoBehaviour
         {
             DoMovement();
             Rotate(m_move);
-            //Rotate((MouseDir() - m_transform.position).normalized);
         }
     }
 
@@ -93,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("MikkoHideOut");
+                SceneManager.LoadScene("MainMenu");
             }
 
 
@@ -108,7 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene("ForestScene");
+                SceneManager.LoadScene("MainScene");
             }
         }
 
@@ -142,57 +126,25 @@ public class PlayerController : MonoBehaviour
         if (!AllowMovement)
             return;
 
-        /*if(Input.GetKeyDown(KeyCode.E))
-        {
-            if(m_allowDash && canDash)
-            {
-                StartCoroutine(Dash());
-                dashTimerForUI = 0;
-                m_anim.SetTrigger("Charge");
-            }     
-        }*/
 
         if(comboStarted)
         {
             comboTimer += 1 * Time.deltaTime;
-            if (comboTimer > 3)
+            if (comboTimer > 1.5f)
             {
-                // GameManager gm = FindObjectOfType<GameManager>();
                 comboTimer = 0;
                 currComboIdx = 0;
                 comboStarted = false;
-                // if(gm.boboFace != null)
-                //    gm.boboFace.sprite = gm.boboNormal;
             }
         }
-
-        /*if (Input.GetKeyDown(KeyCode.F))
-        {
-            AttemptEat();
-        }*/
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             comboStarted = true;
             if(mainHand.canMelee)
             {
-                // SaveFile sf = FindObjectOfType<SaveFile>();
-                /*GameManager gm = FindObjectOfType<GameManager>();
-                if(gm.boboFace != null)
-                    gm.boboFace.sprite = gm.boboAngry;*/
-                // sf.loadedSave.currentMaxCombo
-                /*if (currComboIdx >= 2)
-                {
-                    currComboIdx = 0;
-                }
-                else
-                {
-                    currComboIdx++;
-                }*/
 
-                //Debug.Log(currComboIdx);
-
-                switch (0)
+                switch (currComboIdx)
                 {      
                     case 0:
                         if(m_anim != null)
@@ -203,6 +155,7 @@ public class PlayerController : MonoBehaviour
                       
                         mainHand.Swing();
                         currComboIdx++;
+                        comboTimer -= 1;
                         //SoundManager.PlayASource("YetiSound1");
                         break;
                     case 1:
@@ -211,17 +164,10 @@ public class PlayerController : MonoBehaviour
                             m_anim.SetTrigger("Attack2");
                             m_anim.speed = mainHand.swingTimerMax;
                         }
-                           
-                        offHand.Swing();
-                        //SoundManager.PlayASource("YetiSound2");
-                        // sf.loadedSave.currentMaxCombo
-                        if (currComboIdx < 2)
-                            currComboIdx++;
-                        else
-                        {
-                            currComboIdx = 0;
-                            comboTimer = 3;
-                        } 
+
+                        mainHand.Swing();
+                        currComboIdx++;
+                        comboTimer -= 1;
                         break;
                     case 2:
                         if (m_anim != null)
@@ -230,7 +176,6 @@ public class PlayerController : MonoBehaviour
                         }
                            
                         mainHand.Swing();
-                        offHand.Swing();
                         currComboIdx = 0;
                         //SoundManager.PlayASource("YetiSound3");
                         break;
@@ -239,12 +184,6 @@ public class PlayerController : MonoBehaviour
                 //SoundManager.PlayASource("Swing");
             }
         }
-
-        if (dashTimerForUI < dashCooldown)
-            dashTimerForUI += Time.deltaTime;
-
-        if(playerDash != null)
-            UpdateDashImage();
     }
 
     public void AttemptEat()
@@ -307,38 +246,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator Dash()
-    {
-        SoundManager.PlayASource("GunSound");
-        m_allowDash = false;
-
-        Vector3 dir = m_transform.forward;
-
-        if (m_move.magnitude > 0)
-        {
-            dir = m_move;
-        }
-
-        RaycastHit[] hit = Physics.RaycastAll(m_transform.position, dir, dashDistance + 1, m_dashMask);
-
-        if (hit.Length > 1 && hit[1].collider != null)
-        {
-            //???
-            m_transform.position = hit[1].point - dir;
-        }
-        else
-        {
-            m_transform.Translate(dir * dashDistance, Space.World);
-
-            //TODO:
-            //move towards dashpoint with lerp
-        }
-        dashParticle.Play();
-        yield return new WaitForSeconds(dashCooldown);
-
-        m_allowDash = true;
-    }
-
     private Vector3 MouseDir()
     {
         m_mousePos.x = Input.mousePosition.x;
@@ -354,11 +261,6 @@ public class PlayerController : MonoBehaviour
         //playerHp.sprite = playerHps[hp];
     }
 
-    public void UpdateDashImage()
-    {
-        playerDash.fillAmount = dashTimerForUI / dashCooldown;
-    }
-
     public void Dead()
     {
         m_anim.SetTrigger("Death");
@@ -370,32 +272,5 @@ public class PlayerController : MonoBehaviour
 
         if (GetComponentInChildren<Melee>())
             GetComponentInChildren<Melee>().enabled = false;
-
-
-        //reset save data
-        //go to mikko scene
-
-        // FindObjectOfType<SaveFile>().loadedSave = new SaveData();
-        // FindObjectOfType<SaveFile>().NewSave();
     }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (!attemptEat)
-            return;
-
-        Enemy e = other.transform.root.GetComponent<Enemy>();
-        if (e != null && e.isEatable)
-        {
-            // do something
-            // heal?
-            // score?
-            m_stats.Heal(m_stats.maxHealth / 2, 5);
-            //add exp?
-
-            Destroy(e.gameObject);
-
-        }
-    }
-
 }
