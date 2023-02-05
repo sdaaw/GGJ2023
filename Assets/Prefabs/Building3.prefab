@@ -231,7 +231,7 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 1
+    enableRefracturing: 0
     maxRefractureCount: 1
     invokeCallbacks: 0
   callbackOptions:
