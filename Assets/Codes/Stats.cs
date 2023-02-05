@@ -164,6 +164,7 @@ public class Stats : MonoBehaviour
             _cFollow.distance *= 1.23f;
             _cFollow.offsetZ *= 1.23f;
             _cFollow.offsetX *= 1.23f;
+            GameManager.Instance.SpawnEnemies(3);
 
             GetComponent<PlayerController>().speed *= 1.15f;
             GetComponent<Rigidbody>().mass *= 1.2f;

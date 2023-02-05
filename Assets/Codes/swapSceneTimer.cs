@@ -11,8 +11,8 @@ public class swapSceneTimer : MonoBehaviour
     {
         m_timer += Time.deltaTime;
         if (m_timer > timeToSwap)
-            Application.LoadLevel(2);
+            Application.LoadLevel(1);
         if(Input.GetKeyDown(KeyCode.Space))
-            Application.LoadLevel(2);
+            Application.LoadLevel(1);
     }
 }
