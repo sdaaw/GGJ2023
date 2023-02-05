@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    public List<AudioClip> clips = new List<AudioClip>();
     public AudioSource bgMusic;
 
     private Animator m_anim;
@@ -156,7 +155,7 @@ public class PlayerController : MonoBehaviour
                         mainHand.Swing();
                         currComboIdx++;
                         comboTimer = 0;
-                        //SoundManager.PlayASource("YetiSound1");
+                        SoundManager.PlayASource("Melee1");
                         break;
                     case 1:
                         if (m_anim != null)
@@ -168,6 +167,7 @@ public class PlayerController : MonoBehaviour
                         mainHand.Swing();
                         currComboIdx++;
                         comboTimer = 0;
+                        SoundManager.PlayASource("Melee1");
                         break;
                     case 2:
                         if (m_anim != null)
@@ -177,32 +177,11 @@ public class PlayerController : MonoBehaviour
                            
                         mainHand.Swing();
                         currComboIdx = 0;
-                        //SoundManager.PlayASource("YetiSound3");
+                        SoundManager.PlayASource("Melee2");
                         break;
                 }
-
-                //SoundManager.PlayASource("Swing");
             }
         }
-    }
-
-    public void AttemptEat()
-    {
-        if (attemptEat)
-            return;
-
-        SoundManager.PlayASource("YetiShout");
-        AllowMovement = false;
-        m_anim.SetTrigger("Eat");
-        attemptEat = true;
-        StartCoroutine(WaitEat());
-    }
-
-    private IEnumerator WaitEat()
-    {
-        yield return new WaitForSeconds(1);
-        attemptEat = false;
-        AllowMovement = true;
     }
 
     void DoMovement()

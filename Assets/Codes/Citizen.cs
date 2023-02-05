@@ -166,9 +166,30 @@ public class Citizen : MonoBehaviour
             if (chat != null)
             {
                 chat.DisplayMessage();
+
+                int r = Random.Range(0, 2);
+                if(r == 0)
+                {
+                    r = Random.Range(0, 3);
+                    switch (r)
+                    {
+                        case 0:
+                            SoundManager.PlayASource("gogo1");
+                            break;
+                        case 1:
+                            SoundManager.PlayASource("gogo1");
+                            break;
+                        case 2:
+                            SoundManager.PlayASource("cheer");
+                            break;
+                    }
+                }
+
+             
                 // chat.StartCoroutine(chat.DisplayMessageTime(chat.GetRandomMessage(), 1));
             }
         }
+
         //_playerStats.GainExperience(1); //arbitrary number of experience gained
         float yVal = Mathf.Max(1, Mathf.Sin(Time.time / _rootingSpeed) * 1.5f);
         transform.position = new Vector3(transform.position.x, yVal, transform.position.z);
