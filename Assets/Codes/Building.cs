@@ -12,13 +12,14 @@ public class Building : MonoBehaviour
 
     void Start()
     {
-
+        health = maxHealth;
         BigGoober.GetComponent<BossGoober>().Buildings.Add(gameObject);
+
     }
+
 
     public void TakeDamage(float amount)
     {
-        print("atak!!");
         health -= amount;
         if(health <= 0)
         {

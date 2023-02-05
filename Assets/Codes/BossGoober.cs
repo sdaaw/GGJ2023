@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 
 public class BossGoober : MonoBehaviour
@@ -28,6 +30,13 @@ public class BossGoober : MonoBehaviour
 
     private GameObject _closestBuilding;
 
+    public float totalBuildingHealth;
+    public float maxTotalBuildingHealth;
+    public TMP_Text buildingHealthText;
+
+    public Slider buildingHealthBar;
+
+
     void Start()
     {
         m_anim = GetComponentInChildren<Animator>();
@@ -35,6 +44,14 @@ public class BossGoober : MonoBehaviour
         _sr = GetComponentInChildren<SpriteRenderer>();
         _sr.flipX = false;
         StartCoroutine(RollRandomBuildingAttack());
+        StartCoroutine(UpdateMaxHealth());
+    }
+
+   IEnumerator UpdateMaxHealth()
+    {
+        yield return new WaitForSeconds(0.1f);
+        maxTotalBuildingHealth = Buildings.Count * Buildings[0].GetComponent<Building>().maxHealth;
+        UpdateBuildingStatus();
     }
     void FixedUpdate()
     {
@@ -47,11 +64,34 @@ public class BossGoober : MonoBehaviour
         _attackBuilding = false;
         yield return new WaitForSeconds(0.5f);
         b.GetComponent<Building>().TakeDamage(60f);
+        UpdateBuildingStatus();
+
+    }
+
+    public void UpdateBuildingStatus()
+    {
+        float newHp = 0;
+        foreach (GameObject building in Buildings)
+        {
+            newHp += building.GetComponent<Building>().health;
+        }
+        totalBuildingHealth = newHp;
+        buildingHealthText.text = totalBuildingHealth + "/" + maxTotalBuildingHealth;
+        UpdateHealthImage();
+    }
+
+    public void UpdateHealthImage()
+    {
+        //int hp = (int)m_stats.health;
+        if (buildingHealthBar)
+            buildingHealthBar.value = totalBuildingHealth / maxTotalBuildingHealth;
+        //playerHp.sprite = playerHps[hp];
     }
 
 
     IEnumerator RollRandomBuildingAttack()
     {
+        yield return new WaitForSeconds(0.1f);
         _randomRoll = Random.Range(0, 100);
         if(_randomRoll > 40 && !_attackBuilding)
         {
