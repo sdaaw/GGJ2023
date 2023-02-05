@@ -150,4 +150,18 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    public void SpawnEnemies(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject a = Instantiate(gooberPrefabs[UnityEngine.Random.Range(0, gooberPrefabs.Count)], new Vector3(UnityEngine.Random.Range(spawnBoundaries.x, spawnBoundaries.xx), 3, UnityEngine.Random.Range(spawnBoundaries.y, spawnBoundaries.yy)), Quaternion.identity);
+            SpriteRenderer sr = a.GetComponentInChildren<SpriteRenderer>(); //a.transform.GetChild(1).GetComponent<SpriteRenderer>();
+            sr.color = new Color(
+                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                sr.color.g - UnityEngine.Random.Range(0.1f, 0.3f),
+                sr.color.b - UnityEngine.Random.Range(0.1f, 0.3f));
+            GoobersAlive.Add(a);
+        }
+    }
 }
