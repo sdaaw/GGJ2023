@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour
                             if (m_anim != null)
                             {
                                 m_anim.SetTrigger("Attack");
-                                SoundManager.PlayASource("Dog3");
+                                SoundManager.PlayASource("EnemyRoar");
                             }
                         }
                         else
@@ -285,7 +285,7 @@ public class Enemy : MonoBehaviour
                 }
                 else if(isMelee)
                 {
-                    SoundManager.PlayASource("Dog2");
+                    SoundManager.PlayASource("EnemyRoar");
                 }
             }
         }
