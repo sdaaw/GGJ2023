@@ -57,7 +57,10 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text scoreText;
 
+    public TMP_Text finalScoreText;
     public Image gameEndPanel;
+
+    public bool isGameFinished;
     private void Awake()
     {
         if (Instance == null)
@@ -177,7 +180,12 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        isGameFinished = true;
         gameEndPanel.gameObject.SetActive(true);
-        scoreText.text = "";
+        scoreText.text = finalScoreText.ToString();
+        foreach (GameObject c in Citizens)
+        {
+            c.GetComponent<Citizen>().StartCelebration();
+        }
     }
 }

@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if(isEnabled)
+        if(isEnabled && !GameManager.Instance.isGameFinished)
         {
             DoLogic();
             DoIdle();
