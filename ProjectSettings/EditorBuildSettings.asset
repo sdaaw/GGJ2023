@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 2fce1d951f5cbcb4fb190cd64b3bccc8
+    path: Assets/Scenes/Intro.unity
+    guid: 3f127172698f8824fbbdfa403c3b106d
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2fce1d951f5cbcb4fb190cd64b3bccc8
   - enabled: 1
     path: Assets/Scenes/SampleSceneMikko.unity
     guid: 29e4caae331d70a4dba07c91c55be6f2
