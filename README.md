@@ -1,2 +1,2 @@
-# GlobalGameJam2023
+# GGJ2023
  GOGO!! Super Sentai-Man!!!
